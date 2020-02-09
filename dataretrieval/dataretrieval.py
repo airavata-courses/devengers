@@ -5,10 +5,10 @@ import pika
 import json
 
 
-app = Flask(__name__)
-app.config.from_object("project.config.Config")
-db = SQLAlchemy(app)
-channel = None
+#app = Flask(__name__)
+#app.config.from_object("project.config.Config")
+#db = SQLAlchemy(app)
+#channel = None
 
 
 # Step #2
@@ -16,6 +16,7 @@ def on_connected(connection):
     """Called when we are fully connected to RabbitMQ"""
     # Open a channel
     connection.channel(on_open_callback=on_channel_open)
+    print("cpnnected")
 
     # Step #3
 def on_channel_open(new_channel):
@@ -23,11 +24,35 @@ def on_channel_open(new_channel):
     global channel
     channel = new_channel
     channel.queue_declare(queue="retrieval-processing", durable=True, exclusive=False, auto_delete=False, callback=on_queue_declared)
+    print("channel open")
 
 # Step #4
 def on_queue_declared(frame):
     """Called when RabbitMQ has told us our Queue has been declared, frame is the response from RabbitMQ"""
     channel.basic_consume('retrieval-processing', handle_delivery)
+    print("queue declared")
+
+def send_to_modelprocessing(data):
+    #channel = connection.channel()
+    print("return api called")
+    connection1 = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+    channel1 = connection1.channel()
+    channel1.queue_declare(queue='model-processing', durable=True)
+    print("servicepai  processing connection established")
+    data = {
+        "userid": 1,
+        "correlationid": "123456",
+        "date": "02/02/2019",
+        "time": "14:00"
+        }
+    message = json.dumps(data)
+    channel1.basic_publish(exchange='',
+                           routing_key='model-processing',
+                           body=message)
+    print("message sent")
+    connection1.close()
+    print("conenction1 closed")
+    
 
 # Step #5
 def handle_delivery(channel, method, header, body):
@@ -44,8 +69,8 @@ def handle_delivery(channel, method, header, body):
     print("correlationid: {}".format(data['correlationid']))
     print('Date: {}'.format(data['date']))
     print('Time: {}'.format(data['time']))
-
-    #print(body)
+    send_to_modelprocessing(data)
+    
 
 
 # Step #1: Connect to RabbitMQ using the default parameters
@@ -63,18 +88,6 @@ except KeyboardInterrupt:
     connection.ioloop.start()
 
 
-class User(db.Model):
-    __tablename__ = "dataretrieval_tracker"
-	 
-    id = db.Column(db.Integer, primary_key=True)
-    userid = db.Column(db.Integer)
-    correlationid = db.Column(db.Integer)
-    date = db.Column(db.String)
-    time = db.Column(db.String)
-    status =  db.Column(db.String)
-
-def callback(ch, method, properties, body):
-    print(" [x] Received %r" % body)
 
 
 
