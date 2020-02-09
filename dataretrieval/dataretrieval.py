@@ -1,9 +1,7 @@
-from flask import Flask, jsonify
-from flask_sqlalchemy import SQLAlchemy
 import nexradaws
 import pika
 import json
-
+import psycopg2
 
 #app = Flask(__name__)
 #app.config.from_object("project.config.Config")
@@ -52,7 +50,18 @@ def send_to_modelprocessing(data):
     print("message sent")
     connection1.close()
     print("conenction1 closed")
-    
+
+def create_tables():
+    """ create tables in the PostgreSQL database"""
+    commands = """ CREATE TABLE retrieval_status (
+            id SERIAL PRIMARY KEY,
+            userid VARCHAR(255) NOT NULL,
+            correlationid VARCHAR(255) NOT NULL,
+            file_date_from TIMESTAMP,
+            file_date_to   TIMESTAMP
+        );
+        """
+    return commands
 
 # Step #5
 def handle_delivery(channel, method, header, body):
@@ -61,6 +70,27 @@ def handle_delivery(channel, method, header, body):
     #print("Properties: {}".format(header))
     #print(body)
     print("message recieved")
+    print(body)
+
+    try:
+        print("connecting to db")
+        conn = psycopg2.connect("dbname='dataretrieval_db' user='postgres' host='localhost' password='postgres'")
+        print("connected to db")
+        cur = conn.cursor()
+        command = create_tables()
+        print ("executin command")
+        cur.execute(command)
+        conn.commit()
+        print ("table created")
+        # close communication with the PostgreSQL database server
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+
     
     print(body)
     
