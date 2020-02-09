@@ -22,19 +22,19 @@ def on_channel_open(new_channel):
     """Called when our channel has opened"""
     global channel
     channel = new_channel
-    channel.queue_declare(queue="retrieval-processing", durable=True, exclusive=False, auto_delete=False, callback=on_queue_declared)
+    channel.queue_declare(queue="model-processing", durable=True, exclusive=False, auto_delete=False, callback=on_queue_declared)
 
 # Step #4
 def on_queue_declared(frame):
     """Called when RabbitMQ has told us our Queue has been declared, frame is the response from RabbitMQ"""
-    channel.basic_consume('retrieval-processing', handle_delivery)
+    channel.basic_consume('model-processing', handle_delivery)
 
-def model_processing(data):
+def send_to_dataanalysis(data):
     #channel = connection.channel()
     print("model processing called")
     connection1 = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
     channel1 = connection1.channel()
-    channel1.queue_declare(queue='model-processing', durable=True)
+    channel1.queue_declare(queue='data-analysis', durable=True)
     print("model processing connection established")
     data = {
         "userid": 1,
@@ -44,7 +44,7 @@ def model_processing(data):
         }
     message = json.dumps(data)
     channel1.basic_publish(exchange='',
-                           routing_key='model_processing',
+                           routing_key='data-analysis',
                            body=message)
     print("message sent")
     connection1.close()
@@ -66,7 +66,7 @@ def handle_delivery(channel, method, header, body):
     print("correlationid: {}".format(data['correlationid']))
     print('Date: {}'.format(data['date']))
     print('Time: {}'.format(data['time']))
-    #model_processing(data)
+    send_to_dataanalysis(data)
     
 
 
