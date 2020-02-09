@@ -35,7 +35,7 @@ class Menu extends Component {
       window.location.reload();
     }
     return (
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <Navbar collapseOnSelect expand="md" variant="light">
         <li className="navbar-brand" color="info">
           <Link
             className="nav-link text-info"
@@ -50,8 +50,8 @@ class Menu extends Component {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="/group/create">Start a new group</Nav.Link>
-            <Nav.Link href="/groups">Explore Groups</Nav.Link>
+            {/* <Nav.Link href="/group/create">Start a new group</Nav.Link>
+            <Nav.Link href="/groups">Explore Groups</Nav.Link> */}
             <Form className="ml-3" inline>
               {/* <FormControl type="text" placeholder="Search" className="justify-content-left" /> */}
               {/* <Button variant="outline-info">Search

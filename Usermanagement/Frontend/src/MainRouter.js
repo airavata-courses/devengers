@@ -27,6 +27,9 @@ const MainRouter = () => (
       {/* Routes for profile
       <Route exact path="/user/:userId" component={Profile} />
       <PrivateRoute exact path="/user/edit/:userId" component={EditProfile} /> */}
+      
+      {/* Routes for Weather Report */}
+      
     </Switch>
   </div>
 );
