@@ -82,6 +82,17 @@ def handle_delivery(channel, method, header, body):
         cur.execute(command)
         conn.commit()
         print ("table created")
+        print(body)
+    
+        data = json.loads(body)
+        print("userid: {}".format(data['userid']))
+        print("correlationid: {}".format(data['correlationid']))
+        print('Date: {}'.format(data['date']))
+        print('Time: {}'.format(data['time']))
+
+        
+
+        send_to_modelprocessing(data)
         # close communication with the PostgreSQL database server
         cur.close()
     except (Exception, psycopg2.DatabaseError) as error:
@@ -92,14 +103,7 @@ def handle_delivery(channel, method, header, body):
 
 
     
-    print(body)
     
-    data = json.loads(body)
-    print("userid: {}".format(data['userid']))
-    print("correlationid: {}".format(data['correlationid']))
-    print('Date: {}'.format(data['date']))
-    print('Time: {}'.format(data['time']))
-    send_to_modelprocessing(data)
     
 
 
