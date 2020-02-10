@@ -2,7 +2,7 @@
 ADS Project Spring 2020: Team Devengers
 
 
-Check our wiki page for installation steps [Installation Steps](https://github.com/airavata-courses/devengers/wiki/Installation-steps-for-all-the-services) .
+Check our wiki page for [Installation Steps](https://github.com/airavata-courses/devengers/wiki/Installation-steps-for-all-the-services) .
 
 
 Currently team is working on:
