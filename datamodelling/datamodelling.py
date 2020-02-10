@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 import nexradaws
 import pika
 import json
+import psycopg2
 
 
 #app = Flask(__name__)
@@ -36,12 +37,6 @@ def send_to_dataanalysis(data):
     channel1 = connection1.channel()
     channel1.queue_declare(queue='data-analysis', durable=True)
     print("model processing connection established")
-    data = {
-        "userid": 1,
-        "correlationid": "123456",
-        "date": "02/02/2019",
-        "time": "14:00"
-        }
     message = json.dumps(data)
     channel1.basic_publish(exchange='',
                            routing_key='data-analysis',
@@ -49,7 +44,18 @@ def send_to_dataanalysis(data):
     print("message sent")
     connection1.close()
     print("conenction1 closed")
-    
+
+def create_tables():
+    """ create tables in the PostgreSQL database"""
+    commands = """ CREATE TABLE IF NOT EXISTS modelling_status (
+            id SERIAL PRIMARY KEY,
+            userid VARCHAR(255) NOT NULL,
+            correlationid VARCHAR(255) NOT NULL,
+            request VARCHAR(255) NOT NULL,
+            status VARCHAR(255) NOT NULL
+        );
+        """
+    return commands
 
 # Step #5
 def handle_delivery(channel, method, header, body):
@@ -58,14 +64,24 @@ def handle_delivery(channel, method, header, body):
     #print("Properties: {}".format(header))
     #print(body)
     print("message recieved")
-    
-    print(body)
-    
+    try:
+        print("connecting to db")
+        conn = psycopg2.connect("dbname='datamodelling_db' user='postgres' host='localhost' password='postgres'")
+        print("connected to db")
+        cur = conn.cursor()
+        command = create_tables()
+        print ("executin command")
+        cur.execute(command)
+        conn.commit()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+        if cur is not None:
+            cur.close()
+
     data = json.loads(body)
-    print("userid: {}".format(data['userid']))
-    print("correlationid: {}".format(data['correlationid']))
-    print('Date: {}'.format(data['date']))
-    print('Time: {}'.format(data['time']))
     send_to_dataanalysis(data)
     
 
