@@ -25,6 +25,7 @@ class Home extends Component {
     starttime:new Date(),
     endtime:new Date(),
     station:"",
+    radarids:['DAN1', 'KABR', 'KABX', 'KAKQ', 'KAMA', 'KAMX', 'KAPX', 'KARX', 'KATX', 'KBBX', 'KBGM', 'KBHX', 'KBIS', 'KBLX', 'KBMX', 'KBOX', 'KBRO', 'KBUF', 'KBYX', 'KCAE', 'KCBW', 'KCBX', 'KCCX', 'KCLE', 'KCLX', 'KCRP', 'KCXX', 'KCYS', 'KDAX', 'KDDC', 'KDFX', 'KDGX', 'KDLH', 'KDMX', 'KDOX', 'KDTX', 'KDVN', 'KEAX', 'KEMX', 'KENX', 'KEOX', 'KEPZ', 'KESX', 'KEVX', 'KEWX', 'KEYX', 'KFCX', 'KFDR', 'KFFC', 'KFSD', 'KFSX', 'KFTG', 'KFWS', 'KGGW', 'KGJX', 'KGLD', 'KGRB', 'KGRK', 'KGRR', 'KGSP', 'KGWX', 'KGYX', 'KHDX', 'KHGX', 'KHNX', 'KHPX', 'KHTX', 'KICT', 'KICX', 'KILN', 'KILX', 'KIND', 'KINX', 'KIWA', 'KIWX', 'KJAX', 'KJGX', 'KJKL', 'KLBB', 'KLCH', 'KLGX', 'KLIX', 'KLNX', 'KLOT', 'KLRX', 'KLSX', 'KLTX', 'KLVX', 'KLWX', 'KLZK', 'KMAF', 'KMAX', 'KMBX', 'KMHX', 'KMKX', 'KMLB', 'KMOB', 'KMPX', 'KMQT', 'KMRX', 'KMSX', 'KMTX', 'KMUX', 'KMVX', 'KMXX', 'KNKX', 'KNQA', 'KOAX', 'KOHX', 'KOKX', 'KOTX', 'KPAH', 'KPBZ', 'KPDT', 'KPOE', 'KPUX', 'KRAX', 'KRGX', 'KRIW', 'KRLX', 'KRTX', 'KSFX', 'KSGF', 'KSHV', 'KSJT', 'KSOX', 'KSRX', 'KTBW', 'KTFX', 'KTLH', 'KTLX', 'KTWX', 'KTYX', 'KUDX', 'KUEX', 'KVNX', 'KVTX', 'KVWX', 'KYUX', 'PHKI', 'PHKM', 'PHMO', 'PHWA', 'TJUA'],
     reloadPage: false
   };
 
@@ -42,23 +43,14 @@ class Home extends Component {
   };
 
   handleStartTimeChange = time => {
-    // console.log(new Date(this.eventData.get("eventdate")));
-    // console.log(time.toString().substring(4, 15));
-    let dateString = this.eventData.get("eventdate").toString().substring(4, 15);
-    let timeString1 = time.toString().substring(0, 4).concat(dateString);
-    let timeString2 = time.toString().substring(15);
-    let eventTime = timeString1.concat(timeString2);
-    this.setState({ starttime: new Date(eventTime) });
-    this.eventData.set("starttime", new Date(eventTime));
+    
+    console.log(time.getHours());
+    this.setState({ starttime: new Date(time) });
   };
 
   handleEndTimeChange = time => {
-    let dateString = this.eventData.get("eventdate").toString().substring(4, 15);
-    let timeString1 = time.toString().substring(0, 4).concat(dateString);
-    let timeString2 = time.toString().substring(15);
-    let eventTime = timeString1.concat(timeString2);
-    this.setState({ endtime: new Date(eventTime) });
-    this.eventData.set("endtime", new Date(eventTime));
+    console.log(time.getHours());
+    this.setState({ endtime: new Date(time) });
   };
 
   handleStationChange = s => {
@@ -69,15 +61,19 @@ class Home extends Component {
   clickShow = event => {
     event.preventDefault();
     this.setState({ loading: true });
-    const {user,date,station,latitude,longitude} = this.state;
+    const {user,date,station,starttime,endtime} = this.state;
      console.log(user);
       const dataWeather={
-        date: date,
+        userid:user._id,
+        correlationid : 1111,
+        year:date.getFullYear(),
         station:station,
-        latitude: latitude,
-        longitude: longitude
+        starthour: starttime.getHours(),
+        startmin: starttime.getMinutes(),
+        endhour:endtime.getHours(),
+        endmin:endtime.getMinutes()
 }
-// console.log(dataWeather);
+ console.log(dataWeather);
 
 sendData(dataWeather).then(data => {
   if (data.error) {
@@ -106,7 +102,7 @@ sendData(dataWeather).then(data => {
   };
   
   render() {
-    const { redirectToSignin, latitude,longitude ,date,starttime,endtime} = this.state;
+    const { redirectToSignin, latitude,longitude ,date,starttime,endtime,radarids} = this.state;
 
     if (redirectToSignin) {
       return <Redirect to="/signin" />;
@@ -130,8 +126,8 @@ sendData(dataWeather).then(data => {
               variant="inline"
               format="MM/dd/yyyy"
               margin="normal"
-              id="eventdate"
-              label="Event Date "
+              id="date"
+              label="Date "
               value={date}
               onChange={this.handleDateChange}
               KeyboardButtonProps={{
@@ -141,7 +137,7 @@ sendData(dataWeather).then(data => {
             <KeyboardTimePicker
               margin="normal"
               id="time-picker"
-              label="Start Time For Event "
+              label="Start Time"
               value={starttime}
               onChange={this.handleStartTimeChange}
               KeyboardButtonProps={{
@@ -151,7 +147,7 @@ sendData(dataWeather).then(data => {
             <KeyboardTimePicker
               margin="normal"
               id="time-picker"
-              label="End Time For Event"
+              label="End Time"
               value={endtime}
               onChange={this.handleEndTimeChange}
               KeyboardButtonProps={{
@@ -163,14 +159,11 @@ sendData(dataWeather).then(data => {
       </div>
       <div class="form-group">
       <div class="dropdown">
-      <label>Station</label>
+      <label className="text-muted ">Radar Station Id</label>
       <select class="form-control"
           onChange={this.handleStationChange}>
-        <option selected>Choose...</option>
-        <option value="A">A</option> 
-        <option value="B">B</option> 
-        <option value="C">C</option>
-        <option value="D">D</option>
+             <option selected>Choose...</option>
+            {radarids.map((x,y) => <option key={y}>{x}</option>)}
       </select>
           </div>
         </div>

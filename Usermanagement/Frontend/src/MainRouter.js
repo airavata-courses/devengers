@@ -2,10 +2,11 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Home from "./core/Home";
 import Signup from "./user/Signup";
-// import Profile from "./user/Profile";
+import Profile from "./user/Profile";
+import EditProfile from "./user/EditProfile";
 // import Users from "./user/Users";
 import SignInSide from "./user/Signin";
-// import PrivateRoute from "./auth/PrivateRoute";
+import PrivateRoute from "./auth/PrivateRoute";
 import Signout from "./user/Signout";
 import ForgotPassword from "./user/ForgotPassword";
 import ResetPassword from "./user/ResetPassword";
@@ -24,9 +25,9 @@ const MainRouter = () => (
       <Route exact path="/signup" component={Signup} />
       <Route exact path="/signout" component={Signout} />
 
-      {/* Routes for profile
+      Routes for profile
       <Route exact path="/user/:userId" component={Profile} />
-      <PrivateRoute exact path="/user/edit/:userId" component={EditProfile} /> */}
+      <PrivateRoute exact path="/user/edit/:userId" component={EditProfile} />
       
       {/* Routes for Weather Report */}
       
