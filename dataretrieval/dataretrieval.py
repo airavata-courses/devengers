@@ -53,12 +53,12 @@ def send_to_modelprocessing(data):
 
 def create_tables():
     """ create tables in the PostgreSQL database"""
-    commands = """ CREATE TABLE retrieval_status (
+    commands = """ CREATE TABLE IF NOT EXISTS retrieval_status (
             id SERIAL PRIMARY KEY,
             userid VARCHAR(255) NOT NULL,
             correlationid VARCHAR(255) NOT NULL,
-            file_date_from TIMESTAMP,
-            file_date_to   TIMESTAMP
+            request VARCHAR(255) NOT NULL,
+            status VARCHAR(255) NOT NULL
         );
         """
     return commands
@@ -81,25 +81,45 @@ def handle_delivery(channel, method, header, body):
         print ("executin command")
         cur.execute(command)
         conn.commit()
-        print ("table created")
-        print(body)
-    
-        data = json.loads(body)
-        print("userid: {}".format(data['userid']))
-        print("correlationid: {}".format(data['correlationid']))
-        print('Date: {}'.format(data['date']))
-        print('Time: {}'.format(data['time']))
-
-        
-
-        send_to_modelprocessing(data)
-        # close communication with the PostgreSQL database server
-        cur.close()
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
     finally:
         if conn is not None:
             conn.close()
+        if cur is not None:
+            cur.close()
+
+    try:
+        data = json.loads(body)
+        send_to_modelprocessing(data)
+
+        conn = psycopg2.connect("dbname='dataretrieval_db' user='postgres' host='localhost' password='postgres'")
+        cur = conn.cursor()
+        userid = (data['userid'])
+        correlationid = (data['correlationid'])
+        status = "forwarded"
+        print (userid)
+        print(correlationid)
+        sql = "INSERT INTO retrieval_status (userid,correlationid,request,status) VALUES(%s,%s,%s,%s);"
+        record_to_insert = (userid, correlationid, str(data), status)
+        cur.execute(sql, record_to_insert)
+        #get the generated id back
+        #id = cur.fetchone()[0]
+        conn.commit()
+        print("data entered")
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+        if cur is not None:
+            cur.close()
+       
+        
+        # close communication with the PostgreSQL database server
+        
+    
 
 
     
