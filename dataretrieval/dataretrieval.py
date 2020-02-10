@@ -37,12 +37,6 @@ def send_to_modelprocessing(data):
     channel1 = connection1.channel()
     channel1.queue_declare(queue='model-processing', durable=True)
     print("servicepai  processing connection established")
-    data = {
-        "userid": 1,
-        "correlationid": "123456",
-        "date": "02/02/2019",
-        "time": "14:00"
-        }
     message = json.dumps(data)
     channel1.basic_publish(exchange='',
                            routing_key='model-processing',
