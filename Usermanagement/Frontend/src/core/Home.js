@@ -62,10 +62,13 @@ class Home extends Component {
     event.preventDefault();
     this.setState({ loading: true });
     const {user,date,station,starttime,endtime} = this.state;
-     console.log(user);
+    var min = 1;
+    var max = 1000000;
+    var rand =  min + (Math.random() * (max-min));
+     console.log(isAuthenticated().user._id);
       const dataWeather={
-        userid:user._id,
-        correlationid : 1111,
+        userid:isAuthenticated().user._id,
+        correlationid : parseInt(rand),
         year:date.getFullYear(),
         station:station,
         starthour: starttime.getHours(),
@@ -75,7 +78,7 @@ class Home extends Component {
 }
  console.log(dataWeather);
 
-sendData(dataWeather).then(data => {
+sendData(dataWeather,isAuthenticated().token).then(data => {
   if (data.error) {
     console.log(data.error);
   } else {

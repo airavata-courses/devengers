@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser')
 const expressValidator = require('express-validator');
 const fs = require('fs');
 const cors = require('cors');
+const {receiveMsg }=require('./controllers/queue');
 // load env variables
 const dotenv = require('dotenv');
 dotenv.config()
@@ -21,11 +22,12 @@ mongoose.connect(
   mongoose.connection.on('error', err => {
     console.log(`DB connection error: ${err.message}`)
   });
-
+  receiveMsg();
 // bring in routes
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
-
+const queueRoutes = require('./routes/queue');
+const apiGatewayRoutes = require('./routes/apiGateway')
 // apiDocs
 app.get('/', (req, res) => {
   fs.readFile('docs/apiDocs.json', (err, data) => {
@@ -47,6 +49,8 @@ app.use(expressValidator());
 app.use(cors());
 app.use('/', authRoutes);
 app.use('/', userRoutes);
+app.use('/', queueRoutes);
+app.use('/', apiGatewayRoutes);
 app.use(function (err, req, res, next) {
   if (err.name === 'UnauthorizedError') {
     res.status(401).json({ error: 'Unauthorized' });

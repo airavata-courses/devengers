@@ -7,7 +7,7 @@ const { sendEmail } = require("../helpers");
 // load env
 const dotenv = require("dotenv");
 dotenv.config();
-
+const {receiveMsg }=require('../controllers/queue');
 
 exports.signup = async (req, res) => {
     const userExists = await User.findOne({ email: req.body.email });

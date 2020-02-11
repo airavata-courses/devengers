@@ -10,14 +10,14 @@ amqp.connect('amqp://localhost', function(error0, connection) {
         }
 
         var queue = 'hello';
-        var msg = 'Hello World!';
+        const value = "{'userid': 'abc'}";
 
         channel.assertQueue(queue, {
             durable: false
         });
-        channel.sendToQueue(queue, Buffer.from(msg));
+        channel.sendToQueue(queue, Buffer.from(value));
 
-        console.log(" [x] Sent %s", msg);
+        console.log(" [x] Sent %s", value);
     });
     setTimeout(function() {
         connection.close();
