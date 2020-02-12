@@ -3,7 +3,10 @@ from flask_sqlalchemy import SQLAlchemy
 import nexradaws
 import pika
 import json
+import pytz
 import psycopg2
+from datetime import datetime
+
 
 
 #app = Flask(__name__)
@@ -36,6 +39,7 @@ def on_queue_declared(frame):
 def return_api(data):
     #channel = connection.channel()
     print("return api called")
+    print(data)
     connection1 = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
     channel1 = connection1.channel()
     channel1.queue_declare(queue='service-api', durable=True)
@@ -88,8 +92,29 @@ def handle_delivery(channel, method, header, body):
             cur.close()
 
     try:
+        print("reading data")
         data = json.loads(body)
-        return_api(data)
+        userid = (data['userid'])
+        correlationid = (data['correlationid'])
+        year = (data['year'])
+        month = (data['month'])
+        day = (data['day'])
+        starthour = (data['starthour'])
+        startmin = (data['startmin'])
+        endhour = (data['endhour'])
+        endmin = (data['endmin'])
+        station = (data['station'])
+        central_timezone = pytz.timezone('US/Central')
+        radar_id = station
+
+        start = central_timezone.localize(datetime(int(year),int(month),int(day),int(starthour),int(startmin)))
+        end = central_timezone.localize (datetime(int(year),int(month),int(day),int(endhour),int(endmin)))
+        conn_nexrad = nexradaws.NexradAwsInterface()
+        scans = conn_nexrad.get_avail_scans_in_range(start, end, radar_id)
+        print("There are {} scans available between {} and {}\n".format(len(scans), start, end))
+        print(scans[0:4])
+
+        return_api(format(len(scans)))
 
         conn = psycopg2.connect("dbname='dataresult_db' user='postgres' host='localhost' password='postgres'")
         cur = conn.cursor()
@@ -105,6 +130,7 @@ def handle_delivery(channel, method, header, body):
         #id = cur.fetchone()[0]
         conn.commit()
         print("data entered")
+
 
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
