@@ -70,6 +70,8 @@ class Home extends Component {
         userid:isAuthenticated().user._id,
         correlationid : parseInt(rand),
         year:date.getFullYear(),
+        month:date.getMonth(),
+        day:date.getDate(),
         station:station,
         starthour: starttime.getHours(),
         startmin: starttime.getMinutes(),
