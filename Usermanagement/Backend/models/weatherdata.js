@@ -8,22 +8,20 @@ const weatherdata = new mongoose.Schema({
     trim: true,
     required: true
   },
-  dateyear: {
-    type: StriDateng,
-  },
-  hashed_password: {
+  year: {
     type: String,
-    trim: true,
-    required: true
   },
-  created: {
-    type: Date,
-    default: Date.now()
-  },
-  updated: Date,
-  about: {
+  month: {
     type: String,
-    trim: true
+  },
+  day: {
+    type: String,
+  },
+  starthour: {
+    type: String,
+  },
+  starthour: {
+    type: String,
   }
 });
 
