@@ -66,10 +66,6 @@ exports.sendMsg = (req, res) => {
     
             console.log(" [x] Sent %s", data);
         });
-        setTimeout(function() {
-            connection.close();
-            process.exit(0);
-        }, 500);
     });
 
     res.status(200).json({ message: "Data Sent Successfully to queue." });

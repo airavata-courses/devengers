@@ -8,4 +8,3 @@ Currently team is working on:
 2.API Gateway Service.
 
 3.Data Retrieval Service.
-
