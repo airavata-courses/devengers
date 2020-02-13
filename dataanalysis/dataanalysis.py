@@ -36,19 +36,24 @@ def on_queue_declared(frame):
     channel.basic_consume('data-analysis', handle_delivery)
     print("queue declared")
 
-def return_api(data):
+def return_api(data, correlationid, userid):
     #channel = connection.channel()
     print("return api called")
     print(data)
+    message = {
+        "userid": userid,
+        "correlationid": correlationid,
+        "no_of_files": data
+        }
     connection1 = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
     channel1 = connection1.channel()
     channel1.queue_declare(queue='service-api', durable=True)
     print("servicepai  processing connection established")
     
-    message = json.dumps(data)
+    message_final = json.dumps(message)
     channel1.basic_publish(exchange='',
                            routing_key='service-api',
-                           body=message)
+                           body=message_final)
     print("message sent")
     connection1.close()
     print("conenction1 closed")
@@ -114,7 +119,7 @@ def handle_delivery(channel, method, header, body):
         print("There are {} scans available between {} and {}\n".format(len(scans), start, end))
         print(scans[0:4])
 
-        return_api(format(len(scans)))
+        return_api(format(len(scans)), correlationid, userid)
 
         conn = psycopg2.connect("dbname='dataresult_db' user='postgres' host='localhost' password='postgres'")
         cur = conn.cursor()
