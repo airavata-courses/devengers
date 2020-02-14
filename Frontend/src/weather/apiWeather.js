@@ -26,16 +26,11 @@ export const sendData = (weather,token) => {
       .catch(err => console.log(err));
   };
 
-  export const receiveData = (user,token) => {
-    console.log(user.name);
+  export const receiveData = user => {
+    console.log(user)
     // Communicating with the API gateway on localhost:8080
-    return fetch(`${process.env.REACT_APP_API_URL}/sessionData/{user.name}`, {
+    return fetch(`${process.env.REACT_APP_API_URL}/sessionData/${user}`, {
       method: "Get",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify(user)
     })
       .then(response => {
         return response.json();

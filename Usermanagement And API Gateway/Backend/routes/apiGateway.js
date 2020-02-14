@@ -9,7 +9,9 @@ const { sendMsg }=require('../controllers/queue');
    });
    
    router.get('/sessionData/:userid',function(req, res){
-        res.redirect(307,'http://localhost:8300/rest/db/:userid');
+          var userid = req.params.userid;
+          console.log(userid);
+        res.redirect(307,'http://localhost:8300/rest/db/'+userid);
    });
 
    module.exports = router;

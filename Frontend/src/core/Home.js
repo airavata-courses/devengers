@@ -12,7 +12,7 @@ import {
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import {sendData} from "../weather/apiWeather";
-import {getSingleData} from "../weather/apiWeather"
+
 class Home extends Component {
   state = {
     user: "",
