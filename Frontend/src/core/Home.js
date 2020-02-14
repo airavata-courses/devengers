@@ -12,7 +12,7 @@ import {
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import {sendData} from "../weather/apiWeather";
-
+import {getSingleData} from "../weather/apiWeather"
 class Home extends Component {
   state = {
     user: "",
@@ -26,6 +26,8 @@ class Home extends Component {
     endtime:new Date(),
     station:"",
     radarids:['DAN1', 'KABR', 'KABX', 'KAKQ', 'KAMA', 'KAMX', 'KAPX', 'KARX', 'KATX', 'KBBX', 'KBGM', 'KBHX', 'KBIS', 'KBLX', 'KBMX', 'KBOX', 'KBRO', 'KBUF', 'KBYX', 'KCAE', 'KCBW', 'KCBX', 'KCCX', 'KCLE', 'KCLX', 'KCRP', 'KCXX', 'KCYS', 'KDAX', 'KDDC', 'KDFX', 'KDGX', 'KDLH', 'KDMX', 'KDOX', 'KDTX', 'KDVN', 'KEAX', 'KEMX', 'KENX', 'KEOX', 'KEPZ', 'KESX', 'KEVX', 'KEWX', 'KEYX', 'KFCX', 'KFDR', 'KFFC', 'KFSD', 'KFSX', 'KFTG', 'KFWS', 'KGGW', 'KGJX', 'KGLD', 'KGRB', 'KGRK', 'KGRR', 'KGSP', 'KGWX', 'KGYX', 'KHDX', 'KHGX', 'KHNX', 'KHPX', 'KHTX', 'KICT', 'KICX', 'KILN', 'KILX', 'KIND', 'KINX', 'KIWA', 'KIWX', 'KJAX', 'KJGX', 'KJKL', 'KLBB', 'KLCH', 'KLGX', 'KLIX', 'KLNX', 'KLOT', 'KLRX', 'KLSX', 'KLTX', 'KLVX', 'KLWX', 'KLZK', 'KMAF', 'KMAX', 'KMBX', 'KMHX', 'KMKX', 'KMLB', 'KMOB', 'KMPX', 'KMQT', 'KMRX', 'KMSX', 'KMTX', 'KMUX', 'KMVX', 'KMXX', 'KNKX', 'KNQA', 'KOAX', 'KOHX', 'KOKX', 'KOTX', 'KPAH', 'KPBZ', 'KPDT', 'KPOE', 'KPUX', 'KRAX', 'KRGX', 'KRIW', 'KRLX', 'KRTX', 'KSFX', 'KSGF', 'KSHV', 'KSJT', 'KSOX', 'KSRX', 'KTBW', 'KTFX', 'KTLH', 'KTLX', 'KTWX', 'KTYX', 'KUDX', 'KUEX', 'KVNX', 'KVTX', 'KVWX', 'KYUX', 'PHKI', 'PHKM', 'PHMO', 'PHWA', 'TJUA'],
+    correlationid:"",
+    singleData:"",
     reloadPage: false
   };
 
@@ -34,8 +36,13 @@ class Home extends Component {
     if (reloadPage) {
       window.location.reload();
     }
+    if(isAuthenticated().user){
     const userId = isAuthenticated().user._id;
     this.init(userId);
+    }
+    else{
+      this.setState({redirectToSignin : true});
+    }
   }
 
   handleDateChange = date => {
@@ -65,10 +72,11 @@ class Home extends Component {
     var min = 1;
     var max = 1000000;
     var rand =  min + (Math.random() * (max-min));
+    const correlationid = parseInt(rand);
      console.log(isAuthenticated().user._id);
       const dataWeather={
         userid:isAuthenticated().user._id,
-        correlationid : parseInt(rand),
+        correlationid : correlationid,
         year:date.getFullYear(),
         month:date.getMonth(),
         day:date.getDate(),
@@ -84,7 +92,7 @@ sendData(dataWeather,isAuthenticated().token).then(data => {
   if (data.error) {
     console.log(data.error);
   } else {
-    console.log("data sent");
+    console.log("data");
   }
 });
   };
@@ -202,6 +210,9 @@ sendData(dataWeather,isAuthenticated().token).then(data => {
           </button>
           </form>
           {/* </div> */}
+        </div>
+        <div>
+
         </div>
         </div>
       </>

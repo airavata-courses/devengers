@@ -4,7 +4,6 @@ import { isAuthenticated } from "../auth";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Nav from "react-bootstrap/Nav";
-import Form from "react-bootstrap/Form";
 
 class Menu extends Component {
   constructor() {
@@ -15,14 +14,6 @@ class Menu extends Component {
   }
 
   componentDidMount = () => {
-    // const isActive = (history, path) => {
-    //   if (history.location.pathname === path) {
-    //     return { color: "#ff9900" };
-    //   } else {
-    //     return { color: "#ffffff" };
-    //   }
-    // };
-
     if (!isAuthenticated()) {
       this.setState({ reloadPage: true });
     }
@@ -50,13 +41,8 @@ class Menu extends Component {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
-            {/* <Nav.Link href="/group/create">Start a new group</Nav.Link>
-            <Nav.Link href="/groups">Explore Groups</Nav.Link> */}
-            <Form className="ml-3" inline>
-              {/* <FormControl type="text" placeholder="Search" className="justify-content-left" /> */}
-              {/* <Button variant="outline-info">Search
-        </Button> */}
-            </Form>
+            <Nav.Link href="/sessionData">Session Data</Nav.Link>
+           
           </Nav>
 
           <NavDropdown
