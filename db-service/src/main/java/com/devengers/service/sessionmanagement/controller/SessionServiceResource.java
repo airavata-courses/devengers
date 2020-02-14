@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @ComponentScan
 @RequestMapping("/rest/db")
-public class SessionServiceResource {
+public class SessionServiceResource{
 	String str ="";
 	
 	@Autowired
