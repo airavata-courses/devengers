@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Home from "./core/Home";
+import Session from "./core/Session";
 import Signup from "./user/Signup";
 import Profile from "./user/Profile";
 import EditProfile from "./user/EditProfile";
@@ -25,9 +26,12 @@ const MainRouter = () => (
       <Route exact path="/signup" component={Signup} />
       <Route exact path="/signout" component={Signout} />
 
-      Routes for profile
+      {/* Routes for profile */}
       <Route exact path="/user/:userId" component={Profile} />
       <PrivateRoute exact path="/user/edit/:userId" component={EditProfile} />
+
+      <Route exact path="/sessionData" component={Session} />
+
       
       {/* Routes for Weather Report */}
       
