@@ -7,9 +7,6 @@ Check our wiki page for [Installation Steps](https://github.com/airavata-courses
 
 Currently team is working on:
 
-1.User Management Microservice
-
-2.API Gateway Service.
-
-3.Data Analysis Service enhancement.
+1. Dockerizing all microservices.
+2. Developing test cases and automating the deployment process.
 
