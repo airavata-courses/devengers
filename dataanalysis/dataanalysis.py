@@ -5,7 +5,10 @@ import pika
 import json
 import pytz
 import psycopg2
+import tempfile 
 from datetime import datetime
+
+
 
 
 
@@ -45,7 +48,7 @@ def return_api(data, correlationid, userid):
         "correlationid": correlationid,
         "no_of_files": data
         }
-    connection1 = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+    connection1 = pika.BlockingConnection(pika.ConnectionParameters('172.17.0.3'))
     channel1 = connection1.channel()
     channel1.queue_declare(queue='service-api', durable=True)
     print("servicepai  processing connection established")
@@ -81,7 +84,7 @@ def handle_delivery(channel, method, header, body):
     
     try:
         print("connecting to db")
-        conn = psycopg2.connect("dbname='dataresult_db' user='postgres' host='localhost' password='postgres'")
+        conn = psycopg2.connect("dbname='dataresult_db' user='postgres' host='172.17.0.4' password='postgres'")
         print("connected to db")
         cur = conn.cursor()
         command = create_tables()
@@ -119,9 +122,12 @@ def handle_delivery(channel, method, header, body):
         print("There are {} scans available between {} and {}\n".format(len(scans), start, end))
         print(scans[0:4])
 
+        templocation = tempfile.mkdtemp()
+        results = conn_nexrad.download(scans[0:1], templocation)
+        
         return_api(format(len(scans)), correlationid, userid)
 
-        conn = psycopg2.connect("dbname='dataresult_db' user='postgres' host='localhost' password='postgres'")
+        conn = psycopg2.connect("dbname='dataresult_db' user='postgres' host='172.17.0.4' password='postgres'")
         cur = conn.cursor()
         userid = (data['userid'])
         correlationid = (data['correlationid'])
@@ -151,7 +157,7 @@ def handle_delivery(channel, method, header, body):
 
 
 # Step #1: Connect to RabbitMQ using the default parameters
-parameters = pika.ConnectionParameters(host='localhost')
+parameters = pika.ConnectionParameters(host='172.17.0.3')
 connection = pika.SelectConnection(parameters, on_open_callback=on_connected)
 
 
