@@ -1,0 +1,6 @@
+flask
+flask_sqlalchemy
+datetime 
+pika
+psycopg2-binary
+nexradaws
