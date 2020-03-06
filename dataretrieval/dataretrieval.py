@@ -32,13 +32,7 @@ def on_queue_declared(frame):
 
 def send_to_modelprocessing(data):
     #channel = connection.channel()
-<<<<<<< HEAD:datamodelling/datamodelling.py
-    print("model processing called")
     connection1 = pika.BlockingConnection(pika.ConnectionParameters('172.17.0.3'))
-=======
-    print("return api called")
-    connection1 = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
->>>>>>> dataretrieval:dataretrieval/dataretrieval.py
     channel1 = connection1.channel()
     channel1.queue_declare(queue='model-processing', durable=True)
     print("servicepai  processing connection established")
@@ -73,11 +67,7 @@ def handle_delivery(channel, method, header, body):
 
     try:
         print("connecting to db")
-<<<<<<< HEAD:datamodelling/datamodelling.py
-        conn = psycopg2.connect("dbname='datamodelling_db' user='postgres' host='172.17.0.4' password='postgres'")
-=======
-        conn = psycopg2.connect("dbname='dataretrieval_db' user='postgres' host='localhost' password='postgres'")
->>>>>>> dataretrieval:dataretrieval/dataretrieval.py
+        conn = psycopg2.connect("dbname='dataretrieval_db' user='postgres' host='172.17.0.4' password='postgres'")
         print("connected to db")
         cur = conn.cursor()
         command = create_tables()
@@ -96,11 +86,7 @@ def handle_delivery(channel, method, header, body):
         data = json.loads(body)
         send_to_modelprocessing(data)
 
-<<<<<<< HEAD:datamodelling/datamodelling.py
-        conn = psycopg2.connect("dbname='datamodelling_db' user='postgres' host='172.17.0.4' password='postgres'")
-=======
-        conn = psycopg2.connect("dbname='dataretrieval_db' user='postgres' host='localhost' password='postgres'")
->>>>>>> dataretrieval:dataretrieval/dataretrieval.py
+        conn = psycopg2.connect("dbname='dataretrieval_db' user='postgres' host='172.17.0.4' password='postgres'")
         cur = conn.cursor()
         userid = (data['userid'])
         correlationid = (data['correlationid'])
