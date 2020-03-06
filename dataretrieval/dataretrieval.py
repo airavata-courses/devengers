@@ -33,7 +33,7 @@ def on_queue_declared(frame):
 def send_to_modelprocessing(data):
     #channel = connection.channel()
     print("return api called")
-    connection1 = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+    connection1 = pika.BlockingConnection(pika.ConnectionParameters('172.17.0.3'))
     channel1 = connection1.channel()
     channel1.queue_declare(queue='model-processing', durable=True)
     print("servicepai  processing connection established")
@@ -68,7 +68,7 @@ def handle_delivery(channel, method, header, body):
 
     try:
         print("connecting to db")
-        conn = psycopg2.connect("dbname='dataretrieval_db' user='postgres' host='localhost' password='postgres'")
+        conn = psycopg2.connect("dbname='dataretrieval_db' user='postgres' host='172.17.0.4' password='postgres'")
         print("connected to db")
         cur = conn.cursor()
         command = create_tables()
@@ -87,7 +87,7 @@ def handle_delivery(channel, method, header, body):
         data = json.loads(body)
         send_to_modelprocessing(data)
 
-        conn = psycopg2.connect("dbname='dataretrieval_db' user='postgres' host='localhost' password='postgres'")
+        conn = psycopg2.connect("dbname='dataretrieval_db' user='postgres' host='172.17.0.4' password='postgres'")
         cur = conn.cursor()
         userid = (data['userid'])
         correlationid = (data['correlationid'])
@@ -122,7 +122,7 @@ def handle_delivery(channel, method, header, body):
 
 
 # Step #1: Connect to RabbitMQ using the default parameters
-parameters = pika.ConnectionParameters(host='localhost')
+parameters = pika.ConnectionParameters(host='172.17.0.3')
 connection = pika.SelectConnection(parameters, on_open_callback=on_connected)
 
 
