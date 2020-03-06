@@ -1,10 +1,7 @@
-from flask import Flask, jsonify
-from flask_sqlalchemy import SQLAlchemy
 import nexradaws
 import pika
 import json
 import psycopg2
-
 
 #app = Flask(__name__)
 #app.config.from_object("project.config.Config")
@@ -16,34 +13,38 @@ import psycopg2
 def on_connected(connection):
     """Called when we are fully connected to RabbitMQ"""
     # Open a channel
-    print("connected")
     connection.channel(on_open_callback=on_channel_open)
-
+    print("cpnnected")
 
     # Step #3
 def on_channel_open(new_channel):
     """Called when our channel has opened"""
-    print("cgannel open")
     global channel
     channel = new_channel
-    channel.queue_declare(queue="model-processing", durable=True, exclusive=False, auto_delete=False, callback=on_queue_declared)
+    channel.queue_declare(queue="retrieval-processing", durable=True, exclusive=False, auto_delete=False, callback=on_queue_declared)
+    print("channel open")
 
 # Step #4
 def on_queue_declared(frame):
     """Called when RabbitMQ has told us our Queue has been declared, frame is the response from RabbitMQ"""
+    channel.basic_consume('retrieval-processing', handle_delivery)
     print("queue declared")
-    channel.basic_consume('model-processing', handle_delivery)
 
-def send_to_dataanalysis(data):
+def send_to_modelprocessing(data):
     #channel = connection.channel()
+<<<<<<< HEAD:datamodelling/datamodelling.py
     print("model processing called")
     connection1 = pika.BlockingConnection(pika.ConnectionParameters('172.17.0.3'))
+=======
+    print("return api called")
+    connection1 = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+>>>>>>> dataretrieval:dataretrieval/dataretrieval.py
     channel1 = connection1.channel()
-    channel1.queue_declare(queue='data-analysis', durable=True)
-    print("model processing connection established")
+    channel1.queue_declare(queue='model-processing', durable=True)
+    print("servicepai  processing connection established")
     message = json.dumps(data)
     channel1.basic_publish(exchange='',
-                           routing_key='data-analysis',
+                           routing_key='model-processing',
                            body=message)
     print("message sent")
     connection1.close()
@@ -51,7 +52,7 @@ def send_to_dataanalysis(data):
 
 def create_tables():
     """ create tables in the PostgreSQL database"""
-    commands = """ CREATE TABLE IF NOT EXISTS modelling_status (
+    commands = """ CREATE TABLE IF NOT EXISTS retrieval_status (
             id SERIAL PRIMARY KEY,
             userid VARCHAR(255) NOT NULL,
             correlationid VARCHAR(255) NOT NULL,
@@ -68,10 +69,15 @@ def handle_delivery(channel, method, header, body):
     #print("Properties: {}".format(header))
     #print(body)
     print("message recieved")
-    
+    print(body)
+
     try:
         print("connecting to db")
+<<<<<<< HEAD:datamodelling/datamodelling.py
         conn = psycopg2.connect("dbname='datamodelling_db' user='postgres' host='172.17.0.4' password='postgres'")
+=======
+        conn = psycopg2.connect("dbname='dataretrieval_db' user='postgres' host='localhost' password='postgres'")
+>>>>>>> dataretrieval:dataretrieval/dataretrieval.py
         print("connected to db")
         cur = conn.cursor()
         command = create_tables()
@@ -88,16 +94,20 @@ def handle_delivery(channel, method, header, body):
 
     try:
         data = json.loads(body)
-        send_to_dataanalysis(data)
+        send_to_modelprocessing(data)
 
+<<<<<<< HEAD:datamodelling/datamodelling.py
         conn = psycopg2.connect("dbname='datamodelling_db' user='postgres' host='172.17.0.4' password='postgres'")
+=======
+        conn = psycopg2.connect("dbname='dataretrieval_db' user='postgres' host='localhost' password='postgres'")
+>>>>>>> dataretrieval:dataretrieval/dataretrieval.py
         cur = conn.cursor()
         userid = (data['userid'])
         correlationid = (data['correlationid'])
         status = "forwarded"
         print (userid)
         print(correlationid)
-        sql = "INSERT INTO modelling_status (userid,correlationid,request,status) VALUES(%s,%s,%s,%s);"
+        sql = "INSERT INTO retrieval_status (userid,correlationid,request,status) VALUES(%s,%s,%s,%s);"
         record_to_insert = (userid, correlationid, str(data), status)
         cur.execute(sql, record_to_insert)
         #get the generated id back
@@ -112,7 +122,17 @@ def handle_delivery(channel, method, header, body):
             conn.close()
         if cur is not None:
             cur.close()
+       
+        
+        # close communication with the PostgreSQL database server
+        
     
+
+
+    
+    
+    
+
 
 # Step #1: Connect to RabbitMQ using the default parameters
 parameters = pika.ConnectionParameters(host='172.17.0.3')
