@@ -22,7 +22,7 @@ mongoose.connect(
   mongoose.connection.on('error', err => {
     console.log(`DB connection error: ${err.message}`)
   });
-  // receiveMsg();
+receiveMsg();
 // bring in routes
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
