@@ -1,0 +1,46 @@
+version: '3'
+
+# networks:
+#     app-connect:
+#         driver : bridge
+
+services:
+    rabbitmq: 
+            image: rabbitmq:management
+            environment: 
+                RABBITMQ_DEFAULT_USER: "guest" 
+                RABBITMQ_DEFAULT_PASS: "guest"
+            ports:
+                - "0.0.0.0:4369:4369"
+                - "0.0.0.0:5671:5671"
+                - "0.0.0.0:5672:5672"
+                - "0.0.0.0:25672:25672"
+                - "0.0.0.0:15671:15671"
+                - "0.0.0.0:15672:15672"
+            healthcheck:
+                test: ["CMD", "curl", "-f", "amqp://rabbitmq:5672"]
+                interval: 30s
+                timeout: 10s
+                retries: 5
+            # networks:
+            #     - app-connect
+    adsapp :
+            build : ./Backend/.
+            environment:
+                - HOSTNAMERABBIT=rabbitmq
+            ports:
+                - "0.0.0.0:8080:8080"
+            restart: on-failure
+            depends_on:
+                - rabbitmq
+            links: 
+                - rabbitmq
+                # networks:
+                #     - app-connect
+    # frontend :
+    #         build : ../Frontend/.
+    #         ports:
+    #             - "0.0.0.0:3000:3000"
+            
+    
+            
