@@ -3,7 +3,7 @@ services:
   session-service:
     image: sessionservice
     ports:
-      - "8080:8080"
+      - "8082:8082"
     networks:
       - session-service-network
     depends_on:
