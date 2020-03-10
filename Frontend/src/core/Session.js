@@ -24,7 +24,7 @@ class Session extends Component {
     const token = isAuthenticated().token;
     const id = isAuthenticated().user._id;
 
-    read(userId).then(data => {
+    read(userId,token).then(data => {
       if (data.error) {
         this.setState({ redirectToSignin: true });
       } else {
@@ -37,6 +37,7 @@ class Session extends Component {
         if (data.error) {
           console.log(data.error);
         } else {
+          console.log(data);
           this.setState({ session_data: data });
         }
       });
