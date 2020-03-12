@@ -83,6 +83,7 @@ pipeline {
         } 
         stage('Building Docker image') {
             steps {
+                  checkout scm
             sh '''
                 sudo apt --assume-yes install docker.io
                 sudo systemctl start docker
@@ -93,6 +94,7 @@ pipeline {
         }
         stage('Docker hub Push Image') {
             steps {
+                  checkout scm
             sh '''
                 sudo docker login --username=devengers --password=DEVENGERS@2019
                 sudo docker-compose push
