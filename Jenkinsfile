@@ -88,7 +88,7 @@ pipeline {
                 sudo apt --assume-yes install docker.io
                 sudo systemctl start docker
                 sudo systemctl enable docker        
-                sudo docker-compose build
+                sudo docker-compose up --build
             '''    
             }
         }
