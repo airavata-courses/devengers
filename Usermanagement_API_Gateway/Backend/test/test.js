@@ -19,11 +19,7 @@ describe('Test For Signup', function () {
         .send(signup_data)
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
-        .expect(403)
-        .end((err) => {
-            if (err) return done(err);
-            done();
-        });
+        .expect(204,done())
     });  
 });
 
