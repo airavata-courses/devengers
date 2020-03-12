@@ -29,7 +29,7 @@ pipeline {
                        sh 'npm test'
                  }
             }
-            
+        }  
         stage('build Python Dependencies and runtest for DataAnalysisService') {
             steps {
                    dir('dataanalysis/') {
@@ -73,9 +73,6 @@ pipeline {
                 sh 'python test_dataretrieval.py'
                 }    
             }   
-        }    
-                   
-      }
-        
+        }           
     }
 }
