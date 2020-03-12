@@ -80,6 +80,24 @@ pipeline {
                 sh 'python dataretrieval/test_dataretrieval.py'
                 }    
             }   
-        }           
+        } 
+        stage('Building Docker image') {
+            steps {
+            sh '''
+                sudo apt --assume-yes install docker.io
+                sudo systemctl start docker
+                sudo systemctl enable docker        
+                sudo docker-compose build
+            '''    
+            }
+        }
+        stage('Docker hub Push Image') {
+            steps {
+            sh '''
+                sudo docker login --username=devengers --password=DEVENGERS@2019
+                sudo docker-compose push
+            '''    
+            }
+        }
     }
 }
