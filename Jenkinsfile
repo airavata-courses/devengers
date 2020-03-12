@@ -12,5 +12,15 @@ pipeline {
                 }
             }
         }
+        stage('Install dependencies for Node') {
+            steps {
+                sh 'npm install'
+            }
+        }
+        stage('Testing NodeJS') {
+            steps {
+                sh 'npm test'
+            }
+        }
     }
 }
