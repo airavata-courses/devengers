@@ -10,6 +10,10 @@ services:
         build : ./Frontend/.
         ports:
             - "0.0.0.0:3000:3000"
+    mongodb :
+        image : mongo
+        ports :
+            - '0.0.0.0:27017:27017'
     rabbitmq: 
             image: rabbitmq:management
             environment: 
@@ -38,11 +42,13 @@ services:
             restart: on-failure
             depends_on:
                 - rabbitmq
+                - mongodb
             links: 
                 - rabbitmq
+                - mongodb
                 # networks:
                 #     - app-connect
-        
+
     datamodel :
             build : ./datamodelling/.
             environment:
