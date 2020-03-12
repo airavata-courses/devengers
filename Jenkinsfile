@@ -34,7 +34,7 @@ pipeline {
             steps {
                    dir('dataanalysis/') {
                        checkout scm
-                 sh 'pip install -r requirements.txt'
+                 sh 'pip install -r dataanalysis/requirements.txt'
                   }
             }
         }  
@@ -51,7 +51,7 @@ pipeline {
             steps {
                    dir('datamodelling/') {
                        checkout scm
-                 sh 'pip install -r requirements.txt'
+                 sh 'pip install -r datamodelling/requirements.txt'
                   }
             }
         }
@@ -60,7 +60,7 @@ pipeline {
             steps {
                 dir('datamodelling/') {
                        checkout scm
-                sh 'python test_modelling.py'
+                sh 'python datamodelling/test_modelling.py'
                 }    
             }   
         }
@@ -69,7 +69,7 @@ pipeline {
             steps {
                    dir('dataretrieval/') {
                        checkout scm
-                 sh 'pip install -r requirements.txt'
+                 sh 'pip install -r dataretrieval/requirements.txt'
                   }
             }
         }
@@ -77,9 +77,27 @@ pipeline {
             steps {
                 dir('dataretrieval/') {
                        checkout scm
-                sh 'python test_dataretrieval.py'
+                sh 'python dataretrieval/test_dataretrieval.py'
                 }    
             }   
-        }           
+        } 
+        stage('Building Docker image') {
+            steps {
+            sh '''
+                sudo apt --assume-yes install docker.io
+                sudo systemctl start docker
+                sudo systemctl enable docker        
+                sudo docker-compose build
+            '''    
+            }
+        }
+        stage('Docker hub Push Image') {
+            steps {
+            sh '''
+                sudo docker login --username=devengers --password=DEVENGERS@2019
+                sudo docker-compose push
+            '''    
+            }
+        }
     }
 }
