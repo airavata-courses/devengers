@@ -15,11 +15,13 @@ pipeline {
         }
         stage('Install dependencies for Node') {
             steps {
+                sh 'Usermanagement_API_Gateway/Backend/'
                 sh 'npm install'
             }
         }
         stage('Testing NodeJS') {
             steps {
+                 sh 'Usermanagement_API_Gateway/Backend/'
                 sh 'npm test'
             }
         }
