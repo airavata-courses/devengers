@@ -26,7 +26,7 @@ pipeline {
                  dir('Usermanagement_API_Gateway/Backend/') {
                        checkout scm
                  }
-                sh 'npm test'
+                sh 'Usermanagement_API_Gateway/Backend/npm test'
             }
         }
     }
