@@ -60,7 +60,7 @@ pipeline {
             steps {
                 dir('datamodelling/') {
                        checkout scm
-                sh 'python test_modelling.py'
+                sh 'python datamodelling/test_modelling.py'
                 }    
             }   
         }
@@ -77,7 +77,7 @@ pipeline {
             steps {
                 dir('dataretrieval/') {
                        checkout scm
-                sh 'python test_dataretrieval.py'
+                sh 'python dataretrieval/test_dataretrieval.py'
                 }    
             }   
         }           
