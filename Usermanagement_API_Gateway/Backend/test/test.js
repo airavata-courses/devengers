@@ -34,7 +34,7 @@ describe('Test For Signin', function(){
             .send(signin_data)
             .set('Accept', 'application/json')
             .expect('Content-Type', /JSON/)
-            .expect(200,user)
+            .expect(401,user)
         });
 
         
