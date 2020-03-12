@@ -29,6 +29,53 @@ pipeline {
                        sh 'npm test'
                  }
             }
+            
+        stage('build Python Dependencies and runtest for DataAnalysisService') {
+            steps {
+                   dir('dataanalysis/') {
+                       checkout scm
+                 sh 'pip install -r requirements.txt'
+                  }
+            }
+            steps {
+                dir('dataanalysis/') {
+                       checkout scm
+                sh 'python test_analysis.py'
+                }    
+            }   
         }
+         
+        stage('build Python Dependencies and runtest for DataModellingService') {
+            steps {
+                   dir('datamodelling/') {
+                       checkout scm
+                 sh 'pip install -r requirements.txt'
+                  }
+            }
+            steps {
+                dir('datamodelling/') {
+                       checkout scm
+                sh 'python test_modelling.py'
+                }    
+            }   
+        }
+            
+        stage('build Python Dependencies and runtest for DataRetrievalService') {
+            steps {
+                   dir('dataretrieval/') {
+                       checkout scm
+                 sh 'pip install -r requirements.txt'
+                  }
+            }
+            steps {
+                dir('dataretrieval/') {
+                       checkout scm
+                sh 'python test_dataretrieval.py'
+                }    
+            }   
+        }    
+                   
+      }
+        
     }
 }
