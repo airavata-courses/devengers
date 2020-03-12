@@ -34,7 +34,7 @@ pipeline {
             steps {
                    dir('dataanalysis/') {
                        checkout scm
-                 sh 'pip install -r requirements.txt'
+                 sh 'pip install -r dataanalysis/requirements.txt'
                   }
             }
         }  
@@ -51,7 +51,7 @@ pipeline {
             steps {
                    dir('datamodelling/') {
                        checkout scm
-                 sh 'pip install -r requirements.txt'
+                 sh 'pip install -r datamodelling/requirements.txt'
                   }
             }
         }
@@ -69,7 +69,7 @@ pipeline {
             steps {
                    dir('dataretrieval/') {
                        checkout scm
-                 sh 'pip install -r requirements.txt'
+                 sh 'pip install -r dataretrieval/requirements.txt'
                   }
             }
         }
