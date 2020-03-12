@@ -19,7 +19,6 @@ pipeline {
                        checkout scm
                 }
                 sh 'npm install'
-                sh 'npm test'
             }
         }
         stage('Testing NodeJS') {
@@ -27,7 +26,7 @@ pipeline {
                  dir('Usermanagement_API_Gateway/Backend/') {
                        checkout scm
                  }
-                sh 'Usermanagement_API_Gateway/Backend/ npm test'
+                sh 'npm test'
             }
         }
     }
