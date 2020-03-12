@@ -37,6 +37,8 @@ pipeline {
                  sh 'pip install -r requirements.txt'
                   }
             }
+        }  
+        stage('Testing DataAnalysis Service') {
             steps {
                 dir('dataanalysis/') {
                        checkout scm
@@ -52,6 +54,9 @@ pipeline {
                  sh 'pip install -r requirements.txt'
                   }
             }
+        }
+        
+        stage('Testing DataModelling Service') {
             steps {
                 dir('datamodelling/') {
                        checkout scm
@@ -67,6 +72,8 @@ pipeline {
                  sh 'pip install -r requirements.txt'
                   }
             }
+        }
+        stage('Testing DataRetrieval Service') {
             steps {
                 dir('dataretrieval/') {
                        checkout scm
