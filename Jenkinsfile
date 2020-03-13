@@ -9,7 +9,7 @@ pipeline {
 				ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass && 
 				sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 				sudo docker pull devengers/um_api &&
-				sudo apt-get update -y &&
+				sudo apt-get upgrade -y &&
 				sudo apt-get install -y kubectl &&
 				sudo kubectl run um_api --image devengers/um_api"
             '''    
