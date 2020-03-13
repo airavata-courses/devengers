@@ -98,7 +98,6 @@ pipeline {
             steps {
                   checkout scm
             sh '''
-	    	sudo apt install gnupg2 pass
                 sudo docker login --username=devengers --password=DEVENGERS@2019
                 sudo docker-compose push
             '''    
