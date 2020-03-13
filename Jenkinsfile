@@ -1,5 +1,6 @@
 pipeline {
    agent any
+	stages {
 	stage('User Management API Call') {
             steps {
             sh '''
