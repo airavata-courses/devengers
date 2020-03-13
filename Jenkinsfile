@@ -6,7 +6,7 @@ pipeline {
             sh '''
 				chmod 400 id_rsa
 				ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
-				ssh -i id_rsa.pub ubuntu@149.165.169.178 "sudo apt install gnupg2 pass && 
+				ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass && 
 				sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 				sudo docker pull devengers/um_api &&
 				sudo apt-get update &&
