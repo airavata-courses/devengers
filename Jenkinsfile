@@ -81,7 +81,7 @@ pipeline {
                 }    
             }   
         } 
-        stage('Building Docker image') {
+        stage('Docker image Build') {
             steps {
                   checkout scm
             sh '''
