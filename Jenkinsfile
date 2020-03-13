@@ -1,20 +1,20 @@
 pipeline {
    agent any
 	stages {
-	stage('User Management API Call') {
-            steps {
-            sh '''
-				chmod 400 id_rsa
-				ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
-				ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass -y && 
-				sudo docker login --username=devengers --password=DEVENGERS@2019 &&
-				sudo docker pull devengers/um_api &&
-				sudo apt-get upgrade -y &&
-				sudo apt-get install -y kubectl &&
-				sudo kubectl run um-api --image=devengers/um_api --port=3000"
-            '''    
-            }
-        }
+	// stage('User Management API Call') {
+    //         steps {
+    //         sh '''
+	// 			chmod 400 id_rsa
+	// 			ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
+	// 			ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass -y && 
+	// 			sudo docker login --username=devengers --password=DEVENGERS@2019 &&
+	// 			sudo docker pull devengers/um_api &&
+	// 			sudo apt-get upgrade -y &&
+	// 			sudo apt-get install -y kubectl &&
+	// 			sudo kubectl run um-api --image=devengers/um_api --port=3000"
+    //         '''    
+    //         }
+    //     }
 
         stage('UI Call') {
             steps {
