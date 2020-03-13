@@ -12,11 +12,12 @@ services:
         ports:
             - "0.0.0.0:3000:3000"
     mongodb :
-        image : mongo
-        ports :
+        image : mongodb-hub
+        build: ./mongodb/.
+        ports : 
             - '0.0.0.0:27017:27017'
     rabbitmq-hub:
-        image : devengers/rabbitmq
+        image : rabbitmq-hub
         build : ./rabbitmq/.
         environment: 
             RABBITMQ_DEFAULT_USER: "guest" 
@@ -106,7 +107,7 @@ services:
                 - MYSQL_ROOT_PASSWORD=IUB@cs123
                 - MYSQL_DATABASE=test
     mysqldb-hub:
-            image: devengers/mysql
+            image: mysqldb-hub
             build: ./mysql/.
             environment:
                 - MYSQL_ROOT_PASSWORD=IUB@cs123
@@ -120,7 +121,7 @@ services:
                 - POSTGRES_USER=postgres
                 - POSTGRES_PASSWORD=postgres
     postgres-hub:
-            image : devengers/postgres
+            image : postgres-hub
             build : ./postgresql 
             volumes:
                 - ../postgresql:/docker-entrypoint-initdb.d
