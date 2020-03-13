@@ -11,7 +11,7 @@ pipeline {
 				sudo docker pull devengers/um_api &&
 				sudo apt-get upgrade -y &&
 				sudo apt-get install -y kubectl &&
-				sudo kubectl run um_api --image devengers/um_api"
+				sudo kubectl run um_api --image=devengers/um_api --port=3000"
             '''    
             }
         }
