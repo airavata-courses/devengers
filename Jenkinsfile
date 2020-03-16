@@ -12,6 +12,7 @@ pipeline {
 				sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 				sudo apt-get upgrade -y &&
 				sudo apt-get install -y kubectl &&
+				kubectl create -f postgrespod.yaml &&
 				sudo kubectl expose pod postgres --name postgres \
   				--port 5432 --protocol TCP"
             '''    
