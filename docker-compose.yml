@@ -12,16 +12,9 @@ services:
         ports:
             - "0.0.0.0:3000:3000"
     mongodb :
-        image : mongodb-hub
-        build: ./mongodb/.
-        ports : 
+        image : mongo
+        ports :
             - '0.0.0.0:27017:27017'
-    rabbitmq-hub:
-        image : rabbitmq-hub
-        build : ./rabbitmq/.
-        environment: 
-            RABBITMQ_DEFAULT_USER: "guest" 
-            RABBITMQ_DEFAULT_PASS: "guest"
     rabbitmq: 
             image: rabbitmq:management
             environment: 
@@ -79,7 +72,7 @@ services:
             links: 
                 - rabbitmq
     dataanalysis:
-            image: devengers/dataanalysis
+            image: devengers/analysis
             build : ./dataanalysis/.
             environment:
                 - HOSTNAMERABBIT=rabbitmq
@@ -89,7 +82,6 @@ services:
             links: 
                 - rabbitmq
     sessionservice:
-            image: devengers/sessionservice
             build : ./db-service/.
             ports:
             - "0.0.0.0:8300:8300"
@@ -106,25 +98,10 @@ services:
             environment:
                 - MYSQL_ROOT_PASSWORD=IUB@cs123
                 - MYSQL_DATABASE=test
-    mysqldb-hub:
-            image: mysqldb-hub
-            build: ./mysql/.
-            environment:
-                - MYSQL_ROOT_PASSWORD=IUB@cs123
-                - MYSQL_DATABASE=test
     postgres:
             image : postgres:11
             volumes:
-                - ../postgresql:/docker-entrypoint-initdb.d
-            environment:
-                - POSTGRES_MULTIPLE_DATABASES=dataretrieval_db,datamodelling_db,dataresult_db
-                - POSTGRES_USER=postgres
-                - POSTGRES_PASSWORD=postgres
-    postgres-hub:
-            image : postgres-hub
-            build : ./postgresql 
-            volumes:
-                - ../postgresql:/docker-entrypoint-initdb.d
+                - ./postgresql:/docker-entrypoint-initdb.d
             environment:
                 - POSTGRES_MULTIPLE_DATABASES=dataretrieval_db,datamodelling_db,dataresult_db
                 - POSTGRES_USER=postgres

@@ -38,7 +38,7 @@ def send_to_dataanalysis(data):
     #channel = connection.channel()
     print("model processing called")
     credentials1 = pika.PlainCredentials(username='guest', password='guest')
-    connection1 = pika.BlockingConnection(pika.ConnectionParameters(host='rabbitmq-hub',port=5672,credentials=credentials1))
+    connection1 = pika.BlockingConnection(pika.ConnectionParameters(host='rabbitmq',port=5672,credentials=credentials1))
     channel1 = connection1.channel()
     channel1.queue_declare(queue='data-analysis', durable=True)
     print("model processing connection established")
@@ -72,7 +72,7 @@ def handle_delivery(channel, method, header, body):
     
     try:
         print("connecting to db")
-        conn = psycopg2.connect("dbname='datamodelling_db' user='postgres' host='postgres-hub' password='postgres'")
+        conn = psycopg2.connect("dbname='datamodelling_db' user='postgres' host='postgres' password='postgres'")
         print("connected to db")
         cur = conn.cursor()
         command = create_tables()
@@ -91,7 +91,7 @@ def handle_delivery(channel, method, header, body):
         data = json.loads(body)
         send_to_dataanalysis(data)
 
-        conn = psycopg2.connect("dbname='datamodelling_db' user='postgres' host='postgres-hub' password='postgres'")
+        conn = psycopg2.connect("dbname='datamodelling_db' user='postgres' host='postgres' password='postgres'")
         cur = conn.cursor()
         userid = (data['userid'])
         correlationid = (data['correlationid'])
@@ -117,7 +117,7 @@ def handle_delivery(channel, method, header, body):
 
 # Step #1: Connect to RabbitMQ using the default parameters
 credentials = pika.PlainCredentials(username='guest', password='guest')
-parameters = pika.ConnectionParameters(host='rabbitmq-hub',port=5672,credentials=credentials)
+parameters = pika.ConnectionParameters(host='rabbitmq',port=5672,credentials=credentials)
 connection = pika.SelectConnection(parameters, on_open_callback=on_connected)
 
 
