@@ -20,7 +20,7 @@ pipeline {
   				-- sh -c 'exec psql
 				-e "POSTGRES_MULTIPLE_DATABASES=dataretrieval_db,datamodelling_db,dataresult_db" \
 				-e "POSTGRES_USER=postgres"
-				-e "POSTGRES_PASSWORD=postgres"'
+				-e "POSTGRES_PASSWORD=postgres"'"
             '''    
             }
         }   
