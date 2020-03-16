@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: postgres
+  labels:
+    name: postgres
+spec:
+  containers:
+      image: postgres:11
+      name: postgres
+      volumes:
+                - ../postgresql:/docker-entrypoint-initdb.d
+      environment:
+                - POSTGRES_MULTIPLE_DATABASES=dataretrieval_db,datamodelling_db,dataresult_db
+                - POSTGRES_USER=postgres
+                - POSTGRES_PASSWORD=postgres
