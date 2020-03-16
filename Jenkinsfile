@@ -15,12 +15,7 @@ pipeline {
 				sudo kubectl run \
   				postgres \
 				 --image postgres:11 \
- 				 --rm --attach --restart=Never \
-  				-it \
-  				-- sh -c 'exec psql
-				-e "POSTGRES_MULTIPLE_DATABASES=dataretrieval_db,datamodelling_db,dataresult_db" \
-				-e "POSTGRES_USER=postgres"
-				-e "POSTGRES_PASSWORD=postgres"'"
+ 				 --rm --attach --restart=Never \"
             '''    
             }
         }   
