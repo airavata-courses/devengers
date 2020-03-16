@@ -26,9 +26,15 @@ pipeline {
 				sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 				sudo apt-get upgrade -y &&
 				sudo apt-get install -y kubectl &&
-				kubectl create -f postgrespod.yaml &&
-				sudo kubectl expose pod postgres --name postgres \
-  				--port 5432 --protocol TCP"
+				sudo kubectl run \
+  				postgres \
+				 --image postgres:11 \
+ 				 --rm --attach --restart=Never \
+  				-it \
+  				-- sh -c 'exec psql
+				-e "POSTGRES_MULTIPLE_DATABASES=dataretrieval_db,datamodelling_db,dataresult_db" \
+				-e "POSTGRES_USER=postgres"
+				-e "POSTGRES_PASSWORD=postgres"'
             '''    
             }
         }   
