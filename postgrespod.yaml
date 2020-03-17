@@ -6,7 +6,7 @@ metadata:
     name: postgres
 spec:
   containers:
-      image: postgres:11
+      image: bitnami/postgresql:latest
       name: postgres
       command: ["createdb"]
         args: ["-h","postgres", "-U", "postgres", "dataretrieval_db" ]
