@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: um-api
+spec:
+ type: LoadBalancer
+ ports:
+  - port: 8080
+ selector:
+  run: um-api
+----
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: um-api
+spec:
+  selector:
+    matchLabels:
+      app: um-api
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: um-api
+    spec:
+      containers:
+      - image: devengers/um_api
+        name: um-api
+        env:
+        ports:
+        - containerPort: 8080
+          name: um-api

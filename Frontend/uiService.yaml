@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ui
+spec:
+ type: NodePort
+ ports:
+  - port: 3000
+ selector:
+  run: ui
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ui
+spec:
+  selector:
+    matchLabels:
+      app: ui
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: ui
+    spec:
+      containers:
+      - image: devengers/ui
+        name: ui
+        env:
+        ports:
+        - containerPort: 3000
+          name: ui
