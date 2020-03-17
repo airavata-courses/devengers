@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dataretrieval
+spec:
+ type: NodePort
+ selector:
+  run: dataretrieval
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: dataretrieval
+spec:
+  selector:
+    matchLabels:
+      app: dataretrieval
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: dataretrieval
+    spec:
+      containers:
+      - image: devengers/dataretrieval
+        name: dataretrieval
