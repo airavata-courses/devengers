@@ -17,7 +17,7 @@ pipeline {
 				sudo kubectl run postgres --image postgres:11 &&
 				git clone https://github.com/airavata-courses/devengers.git && cd devengers && 
 				git checkout develop_new && kubectl create -f postgrespod.yaml && 
-				kubectl expose pod some-postgres --name some-postgres-5432 \
+				kubectl expose pod postgres --name postgres \
   				--type LoadBalancer --port 5432 --protocol TCP"
             '''    
             }
