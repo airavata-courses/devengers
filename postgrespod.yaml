@@ -9,7 +9,7 @@ spec:
       image: bitnami/postgresql:latest
       name: postgres
       command: ["createdb"]
-        args: ["-h","postgres", "-U", "postgres", "dataretrieval_db" ]
+        args: ["-h","pgsqlpodname", "-U", "postgres", "dataretrieval_db" ]
       environment:
                 - name : "POSTGRES_PASSWORD"
                   value : "postgres"
