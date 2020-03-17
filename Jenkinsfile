@@ -14,10 +14,12 @@ pipeline {
 		sudo apt-get upgrade -y &&
 		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
+		kubectl delete service postgres &&
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers && git checkout develop_new && cd postgresql &&
 		kubectl apply -f postgres-configmap.yaml && kubectl apply -f postgres-storage.yaml &&
-		kubectl apply -f postgres-deployment.yaml && kubectl apply -f postgres-service.yaml"
+		kubectl apply -f postgres-deployment.yaml &&
+		kubectl expose deployment postgres --port=27017 --target-port=27017 --name=postgres"
             '''    
             }
         }
@@ -33,13 +35,15 @@ pipeline {
 		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get upgrade -y &&
 		sudo apt-get install -y kubectl &&
+		kubectl delete service mysql &&
 		rm -rf devengers &&
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers &&
 		git checkout develop_new &&
 		cd mysql &&
 		kubectl apply -f mysql-deployment.yaml &&
-		kubectl apply -f mysql-pv.yaml"
+		kubectl apply -f mysql-pv.yaml &&
+		kubectl expose deployment mysql --port=3306 --name=mysql"
 		'''    
             }
         }
@@ -58,8 +62,8 @@ pipeline {
 		cd devengers &&
 		git checkout develop_new &&
 		cd mongodb &&
-		kubectl apply -f db-controller.yml &&
-		kubectl apply -f db-service.yml"
+		kubectl apply -f db-deployment.yml &&
+		kubectl expose deployment mongo --port=27017 --target-port=27017 --name=mongo"
 		'''    
             }
         }  
