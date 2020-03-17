@@ -3,36 +3,18 @@ pipeline {
    tools {nodejs "InstanceNodeJS"}
    stages {
  
-	stage('Adding PostGres Call') {
-            steps {
-            sh '''
-				chmod 400 id_rsa
-				ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
-				ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass -y &&
-				sudo apt install git -y &&
-				sudo docker login --username=devengers --password=DEVENGERS@2019 &&
-				sudo apt-get upgrade -y &&
-				sudo apt-get install -y kubectl && git clone https://github.com/airavata-courses/devengers.git && 
-				cd devengers && git checkout develop_new && cd postgresql &&
-				kubectl create -f postgres-configmap.yaml && kubectl create -f postgres-storage.yaml && 
-				kubectl create -f postgres-deployment.yaml && kubectl create -f postgres-service.yaml"
-            '''    
-            }
-        } 
-	   
-	   stage('Adding MYSQL Call') {
-            steps {
-            sh '''
+	stage('Adding MYSQL Call') {
+            steps {
+            sh '''
 				chmod 400 id_rsa
 				ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
 				ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass -y && 
 				sudo docker login --username=devengers --password=DEVENGERS@2019 &&
-				sudo docker pull mysql:8 &&
 				sudo apt-get upgrade -y &&
-				sudo apt-get install -y kubectl &&
-				sudo kubectl run mysql --image  mysql:8"
-            '''    
-            }
-        } 
+				cd devengers/mysql && kubectl apply -f config-map.yaml && kubectl apply -f pod.yaml 
+				&& kubectl apply -f service.yaml && kubectl apply -f client-pod.yaml &&"
+            '''    
+            }
+        } 
     }
 }
