@@ -3,7 +3,7 @@ pipeline {
    tools {nodejs "InstanceNodeJS"}
    stages {
 	stage('Adding MYSQL Call') {
-            steps {
+		steps {
             sh '''
 				chmod 400 id_rsa
 				ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
