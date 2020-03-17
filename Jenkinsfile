@@ -2,7 +2,7 @@ pipeline {
    agent any
    tools {nodejs "InstanceNodeJS"}
    stages {
-	   stage('Adding MongoDB Call') {
+	   stage('Adding SQL Call') {
             steps {
             sh '''
 		chmod 400 id_rsa
@@ -16,9 +16,9 @@ pipeline {
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers &&
 		git checkout develop_new
-		cd mongodb &&
-		kubectl create -f db-controller.yml &&
-		kubectl create -f db-service.yml"
+		cd mysql &&
+		kubectl create -f mysql-deployment.yaml &&
+		kubectl create -f mysql-pv.yaml"
 		'''    
             }
         }
