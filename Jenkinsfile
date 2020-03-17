@@ -44,10 +44,10 @@ pipeline {
 		rm -rf devengers &&
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers &&
-		git checkout develop_new
+		git checkout develop_new &&
 		cd mysql &&
 		kubectl create -f mysql-deployment.yaml &&
-		kubectl create -f mysql-pv.yaml &&"
+		kubectl create -f mysql-pv.yaml"
 		'''    
             }
         }
@@ -66,7 +66,7 @@ pipeline {
 		rm -rf devengers &&
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers &&
-		git checkout develop_new
+		git checkout develop_new &&
 		cd mongodb &&
 		kubectl create -f db-controller.yml &&
 		kubectl create -f db-service.yml"
