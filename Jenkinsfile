@@ -2,7 +2,7 @@ pipeline {
    agent any
    tools {nodejs "InstanceNodeJS"}
    stages {
-	   stage('Adding PostGres Call') {
+	   stage('Adding MongoDB Call') {
             steps {
             sh '''
 		chmod 400 id_rsa
@@ -16,11 +16,9 @@ pipeline {
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers &&
 		git checkout develop_new
-		cd mysql &&
-		kubectl create -f config-map.yaml &&
-		kubectl create -f pod.yaml &&
-		kubectl create -f server.yaml &&
-		kubectl create -f client-pod.yaml"
+		cd mongodb &&
+		kubectl create -f db-controller.yml &&
+		kubectl create -f db-service.yml"
 		'''    
             }
         }
