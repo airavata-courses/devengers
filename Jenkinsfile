@@ -11,7 +11,6 @@ pipeline {
 				ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass -y &&
 				sudo apt install git -y &&
 				sudo docker login --username=devengers --password=DEVENGERS@2019 &&
-				sudo docker pull postgres:11 &&
 				sudo apt-get upgrade -y &&
 				sudo apt-get install -y kubectl &&
 				sudo kubectl run postgres --image postgres:11 &&
