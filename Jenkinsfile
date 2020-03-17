@@ -2,7 +2,6 @@ pipeline {
    agent any
    tools {nodejs "InstanceNodeJS"}
    stages {
- 
 	stage('Adding MYSQL Call') {
             steps {
             sh '''
