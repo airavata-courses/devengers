@@ -100,7 +100,6 @@ pipeline {
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers && git checkout develop_new && cd rabbitmq &&
-		sudo kubectl run rabbitmq --image rabbitmq:management &&
 		sudo kubectl apply -f rabbit-mqconfig.yaml"
             '''    
             }
@@ -173,86 +172,19 @@ pipeline {
 		chmod 400 id_rsa
 		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
 		ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass -y &&
+		sudo apt install git -y &&
 		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
-		sudo docker pull devengers/um_api &&
-		sudo apt-get upgrade -y &&
+		sudo apt-get update &&
+		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
-		sudo kubectl run um-api --image=devengers/um_api --port=8080"
+		git clone https://github.com/airavata-courses/devengers.git &&
+		cd devengers && git checkout develop_new && cd Usermanagement_API_Gateway &&
+		sudo kubectl apply -f um-apiDeployment.yaml"
             '''    
             }
         }
 
         stage('UI Service --on Kubernetes Master') {
-            steps {
-            sh '''
-		chmod 400 id_rsa
-		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
-		ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass -y &&
-		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
-		sudo docker pull devengers/ui &&
-		sudo apt-get upgrade -y &&
-		sudo apt-get install -y kubectl &&
-		sudo kubectl run ui --image=devengers/ui --port=3000"
-            '''    
-            }
-        }
-        stage('SessionService --on Kubernetes Master') {
-            steps {
-            sh '''
-		chmod 400 id_rsa
-		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
-		ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass -y &&
-		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
-		sudo docker pull devengers/sessionservice &&
-		sudo apt-get upgrade -y &&
-		sudo apt-get install -y kubectl &&
-		sudo kubectl run sessionservice --image=devengers/sessionservice --port=8300"
-            '''    
-            }
-        }
-        stage('Dataretrieval Service --on Kubernetes Master') {
-            steps {
-            sh '''
-		chmod 400 id_rsa
-		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
-		ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass -y &&
-		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
-		sudo docker pull devengers/dataretrieval &&
-		sudo apt-get upgrade -y &&
-		sudo apt-get install -y kubectl &&
-		sudo kubectl run dataretrieval --image=devengers/dataretrieval"
-            '''    
-            }
-        }
-        stage('DataModelling Service --on Kubernetes Master') {
-            steps {
-            sh '''
-		chmod 400 id_rsa
-		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
-		ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass -y &&
-		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
-		sudo docker pull devengers/datamodel &&
-		sudo apt-get upgrade -y &&
-		sudo apt-get install -y kubectl &&
-		sudo kubectl run datamodel --image=devengers/datamodel"
-            '''    
-            }
-        }
-        stage('DataAnalysis Service --on Kubernetes Master') {
-            steps {
-            sh '''
-		chmod 400 id_rsa
-		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
-		ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass -y &&
-		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
-		sudo docker pull devengers/dataanalysis &&
-		sudo apt-get upgrade -y &&
-		sudo apt-get install -y kubectl &&
-		sudo kubectl run dataanalysis --image=devengers/dataanalysis"
-            '''    
-            }
-        }
-	    stage('Exposing All Services -- on Kubernetes Master') {
             steps {
             sh '''
 		chmod 400 id_rsa
@@ -264,8 +196,76 @@ pipeline {
 		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
-		cd devengers && git checkout develop_new &&
-		sudo kubectl apply -f expose-Services.yaml"
+		cd devengers && git checkout develop_new && cd Frontend &&
+		sudo kubectl apply -f uiDeployment.yaml"
+            '''    
+            }
+        }
+        stage('SessionService --on Kubernetes Master') {
+            steps {
+            sh '''
+		chmod 400 id_rsa
+		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
+		ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass -y &&
+		sudo apt install git -y &&
+		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
+		sudo apt-get update &&
+		rm -rf devengers &&
+		sudo apt-get install -y kubectl &&
+		git clone https://github.com/airavata-courses/devengers.git &&
+		cd devengers && git checkout develop_new && cd db-service &&
+		sudo kubectl apply -f dbDeployment.yaml"
+            '''    
+            }
+        }
+        stage('Dataretrieval Service --on Kubernetes Master') {
+            steps {
+            sh '''
+		chmod 400 id_rsa
+		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
+		ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass -y &&
+		sudo apt install git -y &&
+		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
+		sudo apt-get update &&
+		rm -rf devengers &&
+		sudo apt-get install -y kubectl &&
+		git clone https://github.com/airavata-courses/devengers.git &&
+		cd devengers && git checkout develop_new && cd dataretrieval &&
+		sudo kubectl apply -f dataretrievalDeployment.yaml"
+            '''    
+            }
+        }
+        stage('DataModelling Service --on Kubernetes Master') {
+            steps {
+            sh '''
+		chmod 400 id_rsa
+		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
+		ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass -y &&
+		sudo apt install git -y &&
+		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
+		sudo apt-get update &&
+		rm -rf devengers &&
+		sudo apt-get install -y kubectl &&
+		git clone https://github.com/airavata-courses/devengers.git &&
+		cd devengers && git checkout develop_new && cd datamodelling &&
+		sudo kubectl apply -f datamodellingDeployment.yaml"
+            '''    
+            }
+        }
+        stage('DataAnalysis Service --on Kubernetes Master') {
+            steps {
+            sh '''
+		chmod 400 id_rsa
+		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
+		ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass -y &&
+		sudo apt install git -y &&
+		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
+		sudo apt-get update &&
+		rm -rf devengers &&
+		sudo apt-get install -y kubectl &&
+		git clone https://github.com/airavata-courses/devengers.git &&
+		cd devengers && git checkout develop_new && cd dataanalysis &&
+		sudo kubectl apply -f dataanalysisDeployment.yaml"
             '''    
             }
         }
