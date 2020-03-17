@@ -95,7 +95,7 @@ pipeline {
                 sudo systemctl start docker
                 sudo systemctl enable docker  
                 python -m pip uninstall -y urllib3
-python -m pip install urllib3==1.22
+		python -m pip install urllib3==1.22
                 sudo docker-compose build
             '''    
             }
