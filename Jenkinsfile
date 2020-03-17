@@ -12,6 +12,9 @@ pipeline {
 		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get upgrade -y &&
 		sudo apt-get install -y kubectl &&
+		kubectl delete deployment,svc mysql
+		kubectl delete pvc mysql-pv-claim
+		kubectl delete pv mysql-pv-volume
 		rm -rf devengers &&
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers &&
