@@ -63,7 +63,7 @@ pipeline {
 		git checkout develop_new &&
 		cd mongodb &&
 		kubectl apply -f db-controller.yml &&
-		kubectl expose deployment mongo --port=27017 --type=NodePort --target-port=27017 --name=mongo"
+		kubectl expose rc mongo --port=27017 --type=NodePort --target-port=27017 --name=mongo"
 		'''    
             }
         }  
