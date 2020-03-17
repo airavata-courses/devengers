@@ -8,9 +8,8 @@ spec:
   containers:
       image: postgres:11
       name: postgres
-      volumes:
-                - ../postgresql:/docker-entrypoint-initdb.d
+      command: ["createdb"]
+        args: ["-h","postgres", "-U", "postgres", "dataretrieval_db" ]
       environment:
-                - POSTGRES_MULTIPLE_DATABASES=dataretrieval_db,datamodelling_db,dataresult_db
-                - POSTGRES_USER=postgres
-                - POSTGRES_PASSWORD=postgres
+                - name : "POSTGRES_PASSWORD"
+                  value : "postgres"
