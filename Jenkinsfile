@@ -23,7 +23,7 @@ pipeline {
 		cd devengers && git checkout develop_new && cd postgresql &&
 		kubectl create -f postgres-configmap.yaml && kubectl create -f postgres-storage.yaml &&
 		kubectl create -f postgres-deployment.yaml && kubectl create -f postgres-service.yaml &&
-		kubectl expose deployment postgres --type=NodePort --port 5432"
+		kubectl expose deployment postgres --port 5432"
             '''    
             }
         }
@@ -49,7 +49,7 @@ pipeline {
 		cd mysql &&
 		kubectl create -f mysql-deployment.yaml &&
 		kubectl create -f mysql-pv.yaml &&
-		kubectl expose deployment mysql --type=NodePort --port 3306"
+		kubectl expose deployment mysql --port 3306"
 		'''    
             }
         }
