@@ -9,26 +9,32 @@ spec:
  selector:
   run: rabbitmq
 ---
-apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
-kind: Deployment
+apiVersion: apps/v1beta1
+kind: StatefulSet
 metadata:
   name: rabbitmq
 spec:
+  replicas: 1
+  serviceName: rabbitmq
   selector:
     matchLabels:
       app: rabbitmq
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
         app: rabbitmq
     spec:
       containers:
-      - image: rabbitmq:management
-        name: rabbitmq
+      - name: rabbitmq
+        image: rabbitmq:3-management
         env:
-          # Use secret in real usage
-        ports:
-        - containerPort: 5672
-          name: rabbitmq
+        - name: "RABBITMQ_ERLANG_COOKIE"
+          value: "1WqgH8N2v1qDBDZDbNy8Bg9IkPWLEpu79m6q+0t36lQ="
+        volumeMounts:
+        - mountPath: /var/lib/rabbitmq
+          name: rabbitmq-data
+      volumes:
+        - name: rabbitmq-data
+          hostPath:
+            path: /data/rabbitmq
+            type: DirectoryOrCreate
