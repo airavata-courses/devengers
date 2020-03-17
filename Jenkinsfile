@@ -15,7 +15,7 @@ pipeline {
 		cd devengers && git checkout develop_new && cd postgresql &&
 		kubectl create -f postgres-configmap.yaml && kubectl create -f postgres-storage.yaml &&
 		kubectl create -f postgres-deployment.yaml && kubectl create -f postgres-service.yaml"
-            '''    
+		'''    
             }
         }
 	  stage('Adding MYSQL Call') {
@@ -31,7 +31,7 @@ pipeline {
 				kubectl apply -f pod.yaml &&
 				kubectl apply -f service.yaml &&
 				kubectl apply -f client-pod.yaml"
-            '''    
+				'''    
             }
         } 
     }
