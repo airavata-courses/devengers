@@ -72,7 +72,7 @@ services:
             links: 
                 - rabbitmq
     dataanalysis:
-            image: devengers/dataanalysis
+            image: devengers/analysis
             build : ./dataanalysis/.
             environment:
                 - HOSTNAMERABBIT=rabbitmq
@@ -82,7 +82,6 @@ services:
             links: 
                 - rabbitmq
     sessionservice:
-            image: devengers/sessionservice
             build : ./db-service/.
             ports:
             - "0.0.0.0:8300:8300"
@@ -102,7 +101,7 @@ services:
     postgres:
             image : postgres:11
             volumes:
-                - ../postgresql:/docker-entrypoint-initdb.d
+                - ./postgresql:/docker-entrypoint-initdb.d
             environment:
                 - POSTGRES_MULTIPLE_DATABASES=dataretrieval_db,datamodelling_db,dataresult_db
                 - POSTGRES_USER=postgres
