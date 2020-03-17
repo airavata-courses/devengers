@@ -19,7 +19,7 @@ pipeline {
 		cd devengers && git checkout develop_new && cd postgresql &&
 		kubectl apply -f postgres-configmap.yaml && kubectl apply -f postgres-storage.yaml &&
 		kubectl apply -f postgres-deployment.yaml &&
-		kubectl expose deployment postgres --port=27017 --target-port=27017 --name=postgres"
+		kubectl expose deployment postgres --port=5432 --type=NodePort --name=postgres"
             '''    
             }
         }
@@ -43,7 +43,7 @@ pipeline {
 		cd mysql &&
 		kubectl apply -f mysql-deployment.yaml &&
 		kubectl apply -f mysql-pv.yaml &&
-		kubectl expose deployment mysql --port=3306 --name=mysql"
+		kubectl expose deployment mysql --port=3306 --type=NodePort --name=mysql"
 		'''    
             }
         }
@@ -62,8 +62,8 @@ pipeline {
 		cd devengers &&
 		git checkout develop_new &&
 		cd mongodb &&
-		kubectl apply -f db-deployment.yml &&
-		kubectl expose deployment mongo --port=27017 --target-port=27017 --name=mongo"
+		kubectl apply -f db-controller.yml &&
+		kubectl expose deployment mongo --port=27017 --type=NodePort --target-port=27017 --name=mongo"
 		'''    
             }
         }  
