@@ -14,9 +14,9 @@ pipeline {
 				sudo apt-get upgrade -y &&
 				sudo apt-get install -y kubectl &&
 				git clone https://github.com/airavata-courses/devengers.git && cd devengers && 
-				git checkout develop_new && kubectl create -f postgrespod.yaml && 
-				kubectl expose pod postgres --name postgres \
-  				--type LoadBalancer --port 5432 --protocol TCP"
+				git checkout develop_new && cd postgresql && kubectl create -f postgres-configmap.yaml &&
+				kubectl create -f postgres-storage.yaml && kubectl create -f postgres-deployment.yaml 
+				&& kubectl create -f postgres-service.yaml"
             '''    
             }
         } 
