@@ -19,7 +19,7 @@ pipeline {
 		cd mysql &&
 		kubectl create -f config-map.yaml &&
 		kubectl create -f pod.yaml &&
-		kubectl create -f service.yaml &&
+		kubectl create -f server.yaml &&
 		kubectl create -f client-pod.yaml"
 		'''    
             }
