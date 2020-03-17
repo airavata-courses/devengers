@@ -14,7 +14,7 @@ pipeline {
 				sudo apt-get upgrade -y &&
 				sudo apt-get install -y kubectl &&
 				sudo kubectl run postgres --image postgres:11 -it \
-				-- sh -c 'exec psql -U postgres -tc "SELECT 1 FROM dataretrieval_db" | grep -q 1 || psql -U postgres -c "CREATE DATABASE dataretrieval_db'"
+				-- sh -c 'exec psql -U postgres -tc "SELECT 1 FROM dataretrieval_db" | grep -q 1 || psql -U postgres -c "CREATE DATABASE dataretrieval_db"'
 				"
             '''    
             }
