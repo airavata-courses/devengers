@@ -34,8 +34,8 @@ services:
                 retries: 5
             # networks:
             #     - app-connect
-    um_api :
-            image: devengers/um_api
+    um-api :
+            image: devengers/um-api
             build : ./Usermanagement_API_Gateway/Backend/.
             environment:
                 - HOSTNAMERABBIT=rabbitmq
@@ -60,7 +60,8 @@ services:
                 - rabbitmq
                 - postgres
             links: 
-                - rabbitmq      
+                - rabbitmq
+                - postgres
     dataretrieval:
             image: devengers/dataretrieval
             build : ./dataretrieval/.
@@ -71,8 +72,9 @@ services:
                 - postgres
             links: 
                 - rabbitmq
+                - postgres
     dataanalysis:
-            image: devengers/analysis
+            image: devengers/dataanalysis
             build : ./dataanalysis/.
             environment:
                 - HOSTNAMERABBIT=rabbitmq
@@ -81,7 +83,9 @@ services:
                 - postgres
             links: 
                 - rabbitmq
+                - postgres
     sessionservice:
+            image : devengers/sessionservice
             build : ./db-service/.
             ports:
             - "0.0.0.0:8300:8300"
@@ -100,10 +104,9 @@ services:
                 - MYSQL_DATABASE=test
     postgres:
             image : postgres:11
-            volumes:
-                - ./postgresql:/docker-entrypoint-initdb.d
+            ports:
+                - "0.0.0.0:5432:5432"
             environment:
-                - POSTGRES_MULTIPLE_DATABASES=dataretrieval_db,datamodelling_db,dataresult_db
+                # - POSTGRES_MULTIPLE_DATABASES=dataretrieval_db,datamodelling_db,dataresult_db
                 - POSTGRES_USER=postgres
                 - POSTGRES_PASSWORD=postgres
-            
