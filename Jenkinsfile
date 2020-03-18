@@ -16,8 +16,8 @@ pipeline {
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers && git checkout develop_new && cd postgresql &&
-		sudo kubectl apply -f postgres-deployment.yaml && sudo kubectl apply -f postgres-service.yaml &&
-		sudo kubectl apply -f postgres-storage.yaml"
+		sudo kubectl apply -f postgres-storage.yaml &&
+		sudo kubectl apply -f postgres-deployment.yaml && sudo kubectl apply -f postgres-service.yaml"
             '''    
             }
         }
