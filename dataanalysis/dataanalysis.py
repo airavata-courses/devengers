@@ -84,6 +84,24 @@ def handle_delivery(channel, method, header, body):
     print("message recieved")
     
     try:
+        print("creating ecting to db")
+        ##conn = psycopg2.connect("dbname='dataretrieval_db' user='postgres' host='localhost' password='postgres'")
+        conn = psycopg2.connect("user='postgres' host='localhost' password='postgres'")
+        conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT);
+        # Obtain a DB Cursor
+        cursor          = conn.cursor();
+        name_Database   = "dataresult_db";
+        sqlCreateDatabase = "create database "+name_Database+";"
+        cursor.execute(sqlCreateDatabase);
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+        if cursor is not None:
+            cursor.close()
+            
+    try:
         print("connecting to db")
         conn = psycopg2.connect("dbname='dataresult_db' user='postgres' host='postgres' password='postgres'")
         print("connected to db")

@@ -2,6 +2,7 @@ import nexradaws
 import pika
 import json
 import psycopg2
+from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
 #app = Flask(__name__)
 #app.config.from_object("project.config.Config")
@@ -66,6 +67,25 @@ def handle_delivery(channel, method, header, body):
     #print(body)
     print("message recieved")
     print(body)
+
+    try:
+        print("creating ecting to db")
+        ##conn = psycopg2.connect("dbname='dataretrieval_db' user='postgres' host='localhost' password='postgres'")
+        conn = psycopg2.connect("user='postgres' host='localhost' password='postgres'")
+        conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT);
+        # Obtain a DB Cursor
+        cursor          = conn.cursor();
+        name_Database   = "dataretrieval_db";
+        sqlCreateDatabase = "create database "+name_Database+";"
+        cursor.execute(sqlCreateDatabase);
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+        if cursor is not None:
+            cursor.close()
+            
 
     try:
         print("connecting to db")
