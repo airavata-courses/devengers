@@ -3,7 +3,6 @@ kind: Service
 metadata:
   name: datamodel
 spec:
- type: NodePort
  selector:
   run: datamodel
 ---
