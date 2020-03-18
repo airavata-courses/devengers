@@ -19,8 +19,9 @@ spec:
           containerPort: 27017
           hostPort: 27017
         volumeMounts:
-            - name: mongo-persistent-storage
-              mountPath: /data/db
+            - mountPath: /var/lib/mongo/
+              name: mongo-persistent-storage
+              subPath: mongodb
       volumes:
         - name: mongo-persistent-storage
           gcePersistentDisk:
