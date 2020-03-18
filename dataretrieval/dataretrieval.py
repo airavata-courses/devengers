@@ -68,7 +68,21 @@ def handle_delivery(channel, method, header, body):
 
     try:
         print("connecting to db")
-        conn = psycopg2.connect("dbname='dataretrieval_db' user='postgres' host='172.17.0.4' password='postgres'")
+        ##conn = psycopg2.connect("dbname='dataretrieval_db' user='postgres' host='localhost' password='postgres'")
+        conn = psycopg2.connect("user='postgres' host='localhost' password='postgres'")
+        conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT);
+        # Obtain a DB Cursor
+        cursor          = conn.cursor();
+        name_Database   = "dataretrieval_db";
+        sqlCreateDatabase = "create database IF NOT EXISTS"+name_Database+";"
+        cursor.execute(sqlCreateDatabase);
+
+ 
+
+    # Create table statement
+
+        sqlCreateDatabase = "create database "+name_Database+";"
+
         print("connected to db")
         cur = conn.cursor()
         command = create_tables()
@@ -87,7 +101,7 @@ def handle_delivery(channel, method, header, body):
         data = json.loads(body)
         send_to_modelprocessing(data)
 
-        conn = psycopg2.connect("dbname='dataretrieval_db' user='postgres' host='172.17.0.4' password='postgres'")
+        conn = psycopg2.connect("dbname='dataretrieval_db' user='postgres' host='localhost' password='postgres'")
         cur = conn.cursor()
         userid = (data['userid'])
         correlationid = (data['correlationid'])
@@ -122,7 +136,7 @@ def handle_delivery(channel, method, header, body):
 
 
 # Step #1: Connect to RabbitMQ using the default parameters
-parameters = pika.ConnectionParameters(host='172.17.0.3')
+parameters = pika.ConnectionParameters(host='localhost')
 connection = pika.SelectConnection(parameters, on_open_callback=on_connected)
 
 
