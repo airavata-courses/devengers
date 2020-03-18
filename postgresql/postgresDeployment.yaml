@@ -1,5 +1,4 @@
-
-apiVersion: apps/v1beta1
+piVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: postgres
@@ -12,20 +11,18 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: postgres:10.1
+          image: postgres:11
           ports:
             - containerPort: 5432
           env:
-            - name: POSTGRES_DB
-              value: db0
             - name: POSTGRES_USER
-              value: mendix
+              value: postgres
             - name: POSTGRES_PASSWORD
-              value: mendix
+              value: postgres
           volumeMounts:
             - mountPath: "/var/lib/postgresql/data"
-              name: "mendix-pgdata"
+              name: "devengers-pgdata"
       volumes:
         - hostPath:
             path: "/home/docker/pgdata"
-          name: mendix-pgdata
+          name: devengers-pgdata
