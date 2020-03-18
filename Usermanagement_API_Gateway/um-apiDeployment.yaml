@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: um-api
 spec:
- type: LoadBalancer
+ type: NodePort
  ports:
   - port: 8080
  selector:
