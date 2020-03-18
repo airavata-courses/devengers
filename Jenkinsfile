@@ -118,7 +118,7 @@ pipeline {
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers && git checkout develop_new && cd postgresql &&
-		kubectl apply -f postgresDeployment.yaml && kubectl apply -f postgresService.yaml"
+		kubectl apply -f postgresDeployment.yaml --validate=false && kubectl apply -f postgresService.yaml --validate=false"
             '''    
             }
         }
