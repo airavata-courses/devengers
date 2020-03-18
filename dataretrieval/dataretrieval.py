@@ -2,6 +2,7 @@ import nexradaws
 import pika
 import json
 import psycopg2
+from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
 #app = Flask(__name__)
 #app.config.from_object("project.config.Config")
@@ -33,7 +34,7 @@ def on_queue_declared(frame):
 def send_to_modelprocessing(data):
     #channel = connection.channel()
     print("return api called")
-    connection1 = pika.BlockingConnection(pika.ConnectionParameters('172.17.0.3'))
+    connection1 = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
     channel1 = connection1.channel()
     channel1.queue_declare(queue='model-processing', durable=True)
     print("servicepai  processing connection established")
@@ -67,28 +68,33 @@ def handle_delivery(channel, method, header, body):
     print(body)
 
     try:
-        print("connecting to db")
+        print("creating ecting to db")
         ##conn = psycopg2.connect("dbname='dataretrieval_db' user='postgres' host='localhost' password='postgres'")
         conn = psycopg2.connect("user='postgres' host='localhost' password='postgres'")
         conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT);
         # Obtain a DB Cursor
         cursor          = conn.cursor();
         name_Database   = "dataretrieval_db";
-        sqlCreateDatabase = "create database IF NOT EXISTS"+name_Database+";"
-        cursor.execute(sqlCreateDatabase);
-
- 
-
-    # Create table statement
-
         sqlCreateDatabase = "create database "+name_Database+";"
-
+        cursor.execute(sqlCreateDatabase);
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+        if cursor is not None:
+            cursor.close()
+        
+    try:
+        # Create table statement
+        conn = psycopg2.connect("dbname='dataretrieval_db' user='postgres' host='localhost' password='postgres'")
         print("connected to db")
         cur = conn.cursor()
         command = create_tables()
         print ("executin command")
         cur.execute(command)
         conn.commit()
+        print(" table created")
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
     finally:
@@ -99,6 +105,7 @@ def handle_delivery(channel, method, header, body):
 
     try:
         data = json.loads(body)
+        print("json data loaded")
         send_to_modelprocessing(data)
 
         conn = psycopg2.connect("dbname='dataretrieval_db' user='postgres' host='localhost' password='postgres'")
