@@ -1,28 +1,60 @@
-piVersion: apps/v1beta1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  labels:
+    app: postgres
+spec:
+  ports:
+    - port: 5432
+  selector:
+    app: postgres
+    tier: postgreSQL
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-claim
+  labels:
+    app: postgres
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: postgres
+  labels:
+    app: postgres
 spec:
-  replicas: 1
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
-        service: postgres
+        app: postgres
+        tier: postgreSQL
     spec:
       containers:
-        - name: postgres
-          image: postgres:10.1
-          ports:
-            - containerPort: 5432
+        - image: postgres:9.6.2-alpine
+          name: postgresql
           env:
             - name: POSTGRES_USER
               value: postgres
             - name: POSTGRES_PASSWORD
               value: postgres
+          ports:
+            - containerPort: 5432
+              name: postgres
           volumeMounts:
-            - mountPath: "/var/lib/postgresql/data"
-              name: "devengers-pgdata"
+            - name: postgresql
+              mountPath: /var/lib/postgresql/data
       volumes:
-        - hostPath:
-            path: "/home/docker/pgdata"
-          name: devengers-pgdata
+        - name: postgresql
+          persistentVolumeClaim:
+            claimName: postgres-claim
