@@ -4,7 +4,7 @@ import nexradaws
 import pika
 import json
 import psycopg2
-
+from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
 #app = Flask(__name__)
 #app.config.from_object("project.config.Config")
@@ -73,7 +73,7 @@ def handle_delivery(channel, method, header, body):
     try:
         print("creating ecting to db")
         ##conn = psycopg2.connect("dbname='dataretrieval_db' user='postgres' host='localhost' password='postgres'")
-        conn = psycopg2.connect("user='postgres' host='localhost' password='postgres'")
+        conn = psycopg2.connect("user='postgres' host='postgres' password='postgres'")
         conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT);
         # Obtain a DB Cursor
         cursor          = conn.cursor();
