@@ -119,7 +119,7 @@ pipeline {
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers && git checkout develop_new && cd postgresql &&
 		kubectl apply -f postgres-configmap.yaml  && kubectl apply -f postgres-storage.yaml 
-		&& kubectl apply -f postgres-service.yaml"
+		&& kubectl apply -f postgres-deployment.yaml && kubectl apply -f postgres-service.yaml"
             '''    
             }
         }
