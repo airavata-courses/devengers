@@ -202,7 +202,8 @@ pipeline {
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers && git checkout develop_new && cd Usermanagement_API_Gateway &&
-		sudo kubectl apply -f um-apiDeployment.yaml --validate=false"
+		sudo kubectl apply -f um-apiDeployment.yaml --validate=false &&
+		sudo kubectl apply -f um-apiService.yaml --validate=false"
             '''    
             }
         }
