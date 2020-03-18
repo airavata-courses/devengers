@@ -12,11 +12,6 @@ kind: Deployment
 metadata:
   name: datamodel
 spec:
-  selector:
-    matchLabels:
-      app: datamodel
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:

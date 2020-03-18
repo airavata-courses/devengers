@@ -12,11 +12,6 @@ kind: Deployment
 metadata:
   name: dataanalysis
 spec:
-  selector:
-    matchLabels:
-      app: dataanalysis
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:

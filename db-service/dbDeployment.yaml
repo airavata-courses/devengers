@@ -14,11 +14,6 @@ kind: Deployment
 metadata:
   name: sessionservice
 spec:
-  selector:
-    matchLabels:
-      app: sessionservice
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:

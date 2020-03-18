@@ -12,11 +12,6 @@ kind: Deployment
 metadata:
   name: dataretrieval
 spec:
-  selector:
-    matchLabels:
-      app: dataretrieval
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:

@@ -14,11 +14,6 @@ kind: Deployment
 metadata:
   name: um-api
 spec:
-  selector:
-    matchLabels:
-      app: um-api
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
