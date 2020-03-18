@@ -3,7 +3,6 @@ kind: Service
 metadata:
   name: dataanalysis
 spec:
- type: NodePort
  selector:
   run: dataanalysis
 ---
