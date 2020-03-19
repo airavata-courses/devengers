@@ -5,7 +5,7 @@ metadata:
   labels:
     app: um-api
 spec:
- type: LoadBalancer
+ type: NodePort
  ports:
   - protocol: TCP
     port: 8080
