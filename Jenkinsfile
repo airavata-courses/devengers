@@ -31,6 +31,7 @@ pipeline {
 		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get upgrade -y &&
 		sudo apt-get install -y kubectl &&
+		sudo apt install snapd &&
 		rm -rf devengers &&
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers &&
