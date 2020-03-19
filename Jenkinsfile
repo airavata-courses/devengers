@@ -85,29 +85,31 @@ pipeline {
                 }
             }
         }
-		stage('Docker image Build') {
-              steps {
-                    checkout scm
-              sh '''
-                  sudo apt --assume-yes install docker.io
-                  sudo systemctl start docker
-                  sudo systemctl enable docker
-                  python -m pip uninstall -y urllib3
-  		python -m pip install urllib3==1.22
-                  sudo docker-compose build
-              '''
-              }
-          }
 
-          stage('Docker hub Push Image') {
-              steps {
-                    checkout scm
-              sh '''
-                  sudo docker login --username=devengers --password=DEVENGERS@2019
-                  sudo docker-compose push
-              '''
-              }
-          }
+		stage('Docker image Build') {
+            steps {
+                  checkout scm
+            sh '''
+                sudo apt --assume-yes install docker.io
+                sudo systemctl start docker
+                sudo systemctl enable docker
+                python -m pip uninstall -y urllib3
+		python -m pip install urllib3==1.22
+                sudo docker-compose build
+            '''
+            }
+        }
+
+        stage('Docker hub Push Image') {
+            steps {
+                  checkout scm
+            sh '''
+                sudo docker login --username=devengers --password=DEVENGERS@2019
+                sudo docker-compose push
+            '''
+            }
+        }
+		
 	    stage('RabbitMQ Service -- on Kubernetes Master') {
             steps {
             sh '''
