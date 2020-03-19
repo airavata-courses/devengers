@@ -5,9 +5,10 @@ metadata:
   labels:
     app: rabbitmq
 spec:
- type: NodePort
+ type: ClusterIp
  ports:
   - port: 5672
+    targetPort: 5672
  selector:
   run: rabbitmq
 ---
