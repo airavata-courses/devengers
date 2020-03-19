@@ -18,6 +18,9 @@ kind: Deployment
 metadata:
   name: ui
 spec:
+  selector:
+    matchLabels:
+      app: ui
   template:
     metadata:
       labels:

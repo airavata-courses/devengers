@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   name: datamodel
 spec:
+  selector:
+    matchLabels:
+      app: datamodel
   template:
     metadata:
       labels:

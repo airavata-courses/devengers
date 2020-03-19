@@ -18,6 +18,9 @@ kind: Deployment
 metadata:
   name: sessionservice
 spec:
+  selector:
+    matchLabels:
+      app: sessionservice
   template:
     metadata:
       labels:

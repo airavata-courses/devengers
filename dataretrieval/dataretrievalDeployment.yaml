@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   name: dataretrieval
 spec:
+  selector:
+    matchLabels:
+      app: dataretrieval
   template:
     metadata:
       labels:

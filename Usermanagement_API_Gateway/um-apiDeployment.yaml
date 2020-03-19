@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   name: um-api
 spec:
+  selector:
+    matchLabels:
+      app: um-api
   template:
     metadata:
       labels:

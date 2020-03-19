@@ -11,7 +11,7 @@ const { sendMsg }=require('../controllers/queue');
    router.get('/sessionData/:userid',function(req, res){
           var userid = req.params.userid;
           console.log(userid);
-        res.redirect(307,'http://sessionservice:8300/rest/db/'+userid);
+        res.redirect(307,'http://149.165.169.178:8300/rest/db/'+userid);
    });
 
    module.exports = router;

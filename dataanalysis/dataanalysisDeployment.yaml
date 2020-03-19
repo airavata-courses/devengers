@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   name: dataanalysis
 spec:
+  selector:
+    matchLabels:
+      app: dataanalysis
   template:
     metadata:
       labels:
