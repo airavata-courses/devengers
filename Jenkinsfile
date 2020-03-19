@@ -1,6 +1,7 @@
 pipeline {
    agent any
    tools {nodejs "InstanceNodeJS"}
+
    stages {
 	   steps {
                 sh 'mvn -f db-service/pom.xml clean package'
@@ -76,6 +77,7 @@ pipeline {
                   }
             }
         }
+
         stage('Testing DataRetrieval Service') {
             steps {
                 dir('dataretrieval/') {
@@ -93,7 +95,7 @@ pipeline {
                 sudo systemctl start docker
                 sudo systemctl enable docker
                 python -m pip uninstall -y urllib3
-		python -m pip install urllib3==1.22
+				python -m pip install urllib3==1.22
                 sudo docker-compose build
             '''
             }
@@ -108,6 +110,7 @@ pipeline {
             '''
             }
         }
+
 	    stage('RabbitMQ Service -- on Kubernetes Master') {
             steps {
             sh '''
@@ -125,6 +128,7 @@ pipeline {
             '''
             }
         }
+
 		stage('SQL Service -- on Kubernetes Master') {
            steps {
            sh '''
@@ -144,7 +148,8 @@ pipeline {
 		sudo kubectl apply -f mysql-pv.yaml"
 		'''
            }
-       } 
+       }
+
 	   stage('PostGres Service -- on Kubernetes Master') {
             steps {
              sh '''
@@ -163,6 +168,7 @@ pipeline {
             '''    
             }
         }
+
 		stage('User Management Service --on Kubernetes Master') {
             steps {
             sh '''
@@ -181,6 +187,7 @@ pipeline {
             '''
             }
         }
+
 		stage('UI Service --on Kubernetes Master') {
             steps {
             sh '''
@@ -198,6 +205,7 @@ pipeline {
             '''
             }
         }
+
         stage('SessionService --on Kubernetes Master') {
             steps {
             sh '''
@@ -215,6 +223,7 @@ pipeline {
             '''
             }
         }
+
         stage('Dataretrieval Service --on Kubernetes Master') {
             steps {
             sh '''
@@ -232,6 +241,7 @@ pipeline {
             '''
             }
         }
+
         stage('DataModelling Service --on Kubernetes Master') {
             steps {
             sh '''
@@ -249,6 +259,7 @@ pipeline {
             '''
             }
         }
+
         stage('DataAnalysis Service --on Kubernetes Master') {
             steps {
             sh '''
