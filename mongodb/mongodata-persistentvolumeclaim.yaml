@@ -1,14 +1,32 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: mongodata-pv
+  labels:
+    type: local
+    app: mongodb
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/mnt/data"
+---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   creationTimestamp: null
   labels:
+    app: mongodb
     io.kompose.service: mongodata
   name: mongodata
 spec:
+  storageClassName: manual
   accessModes:
   - ReadWriteOnce
   resources:
     requests:
-      storage: 100Mi
+      storage: 20Gi
 status: {}
