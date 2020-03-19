@@ -85,8 +85,7 @@ pipeline {
                 }
             }
         }
-
-		stage('Docker image Build') {
+	stage('Docker image Build') {
             steps {
                   checkout scm
             sh '''
@@ -109,8 +108,7 @@ pipeline {
             '''    
             }
         }
-
-		
+	   
 	    stage('RabbitMQ Service -- on Kubernetes Master') {
             steps {
             sh '''
