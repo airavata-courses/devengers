@@ -6,13 +6,14 @@ spec:
  replicas: 1
  selector:
   matchLabels:
-    app: mongo
+    role: mongo
  template:
   metadata:
    labels:
-    app: mongo
+    role: mongo
     environment: test
  spec:
+  terminationGracePeriodSeconds: 10
   containers:
   - name: mongo
     image: mongo
