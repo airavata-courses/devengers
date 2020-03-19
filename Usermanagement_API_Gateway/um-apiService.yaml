@@ -5,7 +5,7 @@ metadata:
   labels:
     app: um-api
 spec:
- type: NodePort
+ type: ClusterIP
  ports:
   - protocol: TCP
     port: 8080
