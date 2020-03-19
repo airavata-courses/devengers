@@ -8,7 +8,7 @@ metadata:
 spec:
   storageClassName: manual
   capacity:
-    storage: 20Gi
+    storage: 5Gi
   accessModes:
     - ReadWriteMany
   hostPath:
@@ -20,8 +20,8 @@ metadata:
   creationTimestamp: null
   labels:
     app: mongodb
+    io.kompose.service: mongodata
   name: mongodata
-spec:
   accessModes:
   - ReadWriteOnce
   resources:
