@@ -27,12 +27,12 @@ spec:
      volumeMounts:
        - name: mongo-pv-storage
          mountPath: /data/db
-    - name: mongo-sidecar
-      image: cvallance/mongo-k8s-sidecar
-      env:
-        - name: MONGO\_SIDECAR\_POD\_LABELS
-          value: "role=mongo,environment=test"     
-    volumes:
+   - name: mongo-sidecar
+    image: cvallance/mongo-k8s-sidecar
+    env:
+      - name: MONGO\_SIDECAR\_POD\_LABELS
+        value: "role=mongo,environment=test"     
+  volumes:
     - name: mongo-pv-storage
       persistentVolumeClaim:
       claimName: mongo-pv-claims
