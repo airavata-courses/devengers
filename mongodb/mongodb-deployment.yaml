@@ -3,15 +3,16 @@ kind: StatefulSet
 metadata:
  name: mongo
 spec:
- serviceName: "mongo"
  replicas: 1
+ selector:
+  matchLabels:
+    app: mongo
  template:
   metadata:
    labels:
-    role: mongo
+    app: mongo
     environment: test
  spec:
-  terminationGracePeriodSeconds: 10
   containers:
   - name: mongo
     image: mongo
