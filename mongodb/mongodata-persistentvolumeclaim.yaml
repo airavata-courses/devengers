@@ -22,7 +22,6 @@ metadata:
     app: mongodb
   name: mongodata
 spec:
-  storageClassName: manual
   accessModes:
   - ReadWriteOnce
   resources:
