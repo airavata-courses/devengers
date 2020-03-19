@@ -10,17 +10,29 @@ spec:
    labels:
     role: mongo
     environment: test
+  
  spec:
-  containers:
-  - image: mongo
-    name: mongo
-    ports:
-     - containerPort: 27017
-    volumeMounts:
-     - name: mongo-pv-storage
-       mountPath: /data/db
-  volumes:
+ terminationGracePeriodSeconds: 10
+ containers:
+   - name: mongo
+     image: mongo
+     command:
+       - mongod
+       - "--replSet"
+       - rs0
+       - "--smallfiles"
+       - "--noprealloc"
+     ports:
+       - containerPort: 27017
+     volumeMounts:
+       - name: mongo-pv-storage
+         mountPath: /data/db
+    - name: mongo-sidecar
+      image: cvallance/mongo-k8s-sidecar
+      env:
+        - name: MONGO\_SIDECAR\_POD\_LABELS
+          value: "role=mongo,environment=test"     
+    volumes:
     - name: mongo-pv-storage
       persistentVolumeClaim:
-      claimName: mongo-pv-claim
-  
+      claimName: mongo-pv-claims
