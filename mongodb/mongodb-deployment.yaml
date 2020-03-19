@@ -11,8 +11,8 @@ spec:
     role: mongo
     environment: test
  spec:
- terminationGracePeriodSeconds: 10
- containers:
+  terminationGracePeriodSeconds: 10
+  containers:
   - name: mongo
     image: mongo
     command:
@@ -26,7 +26,8 @@ spec:
     volumeMounts:
      - name: mongo-pv-storage
        mountPath: /data/db
-    volumes:
-      - name: mongo-pv-storage
-        persistentVolumeClaim:
-        claimName: mongo-pv-claim
+  volumes:
+    - name: mongo-pv-storage
+      persistentVolumeClaim:
+      claimName: mongo-pv-claim
+  
