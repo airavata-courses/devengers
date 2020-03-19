@@ -31,5 +31,8 @@ spec:
       - image: devengers/ui
         imagePullPolicy: Always
         name: ui
+        env:
+          - name: REACT_APP_API_URL
+            value: "http://um-api"
         ports:
         - containerPort: 3000
