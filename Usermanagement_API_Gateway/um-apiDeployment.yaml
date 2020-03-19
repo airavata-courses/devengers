@@ -13,8 +13,7 @@ spec:
     spec:
       containers:
       - image: devengers/um-api
+        imagePullPolicy: Always
         name: um-api
-        env:
         ports:
         - containerPort: 8080
-          name: um-api

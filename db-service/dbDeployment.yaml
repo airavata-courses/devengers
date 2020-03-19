@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - image: devengers/sessionservice
+        imagePullPolicy: Always
         name: sessionservice
         ports:
         - containerPort: 8300
-          name: sessionservice
