@@ -39,7 +39,7 @@ pipeline {
 		cd mongodb &&
 		sudo snap install kompose &&
 		kubectl apply -f mongodata-persistentvolumeclaim.yaml &&
-		kubectl apply -f mongodb-deployment.yaml &&
+		kubectl apply -f mongodb-deployment.yaml --validate=false &&
 		kubectl apply -f mongodb-service.yaml"
 		'''
            }
