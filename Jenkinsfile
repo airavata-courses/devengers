@@ -36,8 +36,10 @@ pipeline {
 		cd devengers &&
 		git checkout develop_new &&
 		cd mongodb &&
-		kubectl apply -f mongoStorage.yaml &&
-		kubectl apply -f mongo-statefulset.yaml"
+		sudo snap install kompose -y &&
+		kubectl create -f mongodata-persistentvolumeclaim.yaml &&
+		kubectl create -f mongodb-deployment.yaml &&
+		kubectl create -f mongodb-service.yaml"
 		'''
            }
        }
