@@ -2,9 +2,13 @@ apiVersion: v1
 kind: Service
 metadata:
   name: sessionservice
+  labels:
+    app: sessionservice
 spec:
   ports:
-  - port: 3306
+  - protocol: TCP
+    port: 8300
+    targetPort: 8300
   selector:
     app: sessionservice
   type: NodePort
@@ -23,5 +27,5 @@ spec:
       - image: devengers/sessionservice
         name: sessionservice
         ports:
-        - containerPort: 3306
+        - containerPort: 8300
           name: sessionservice

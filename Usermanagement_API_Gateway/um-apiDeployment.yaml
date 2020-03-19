@@ -9,7 +9,7 @@ spec:
         app: um-api
     spec:
       containers:
-      - image: devengers/um_api
+      - image: devengers/um-api
         name: um-api
         env:
         ports:

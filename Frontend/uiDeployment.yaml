@@ -2,12 +2,16 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ui
+  labels:
+    app: ui
 spec:
  type: NodePort
  ports:
-  - port: 3000
+  - protocol: TCP
+    port: 3000
+    targetPort: 3000
  selector:
-  run: ui
+  app: ui
 ---
 apiVersion: apps/v1
 kind: Deployment
