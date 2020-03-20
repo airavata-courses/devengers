@@ -117,8 +117,8 @@ pipeline {
 		cd devengers &&
 		git checkout develop_new &&
 		cd mysql &&
-		sudo kubectl apply -f mysql-deployment.yaml &&
-        sudo kubectl apply -f server.yaml"
+        sudo kubectl apply -f mysql-pv &&
+		sudo kubectl apply -f mysql-deployment.yaml"
 		'''
            }
        } 
