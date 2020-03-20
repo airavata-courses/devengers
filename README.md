@@ -10,3 +10,4 @@ Currently team is working on:
 1. Dockerizing all microservices.
 2. Developing test cases and automating the deployment process.
 
+3.Data Retrieval Service.

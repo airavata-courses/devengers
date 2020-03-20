@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: um-api
+  labels:
+    app: um-api
+spec:
+  selector:
+    app: um-api
+  type: NodePort
+  ports:
+  - port: 8080
+    targetPort: 32178
+    nodePort: 32178
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: um-api
+  labels:
+    app: um-api
+spec:
+  selector:
+    matchLabels:
+      app: um-api
+  template:
+    metadata:
+      labels:
+        app: um-api
+    spec:
+      containers:
+      - image: devengers/um-api
+        imagePullPolicy: Always
+        name: um-api
+        ports:
+        - containerPort: 32178
