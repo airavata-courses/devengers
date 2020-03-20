@@ -20,7 +20,7 @@ metadata:
   labels:
     app: um-api
 spec:
-  replicas: 5
+  replicas: 1
   selector:
     matchLabels:
       app: um-api

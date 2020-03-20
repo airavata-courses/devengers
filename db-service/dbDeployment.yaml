@@ -18,7 +18,7 @@ kind: Deployment
 metadata:
   name: sessionservice
 spec:
-  replicas: 5
+  replicas: 1
   selector:
     matchLabels:
       app: sessionservice
