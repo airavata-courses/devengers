@@ -8,7 +8,7 @@ spec:
   type: NodePort
   ports:
   - port: 8300
-    targetPort: 8300
+    targetPort: 32179
     nodePort: 32179
   selector:
     app: sessionservice
@@ -31,4 +31,4 @@ spec:
         imagePullPolicy: Always
         name: sessionservice
         ports:
-        - containerPort: 8300
+        - containerPort: 32179

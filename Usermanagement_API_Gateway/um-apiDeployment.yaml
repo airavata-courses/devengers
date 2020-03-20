@@ -10,7 +10,7 @@ spec:
   type: NodePort
   ports:
   - port: 8080
-    targetPort: 8080
+    targetPort: 32178
     nodePort: 32178
 ---
 apiVersion: apps/v1
@@ -33,4 +33,4 @@ spec:
         imagePullPolicy: Always
         name: um-api
         ports:
-        - containerPort: 8080
+        - containerPort: 32178
