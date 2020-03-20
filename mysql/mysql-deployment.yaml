@@ -32,6 +32,8 @@ spec:
         name: mysqldb
         env:
           # Use secret in real usage
+        - name: MYSQL_DATABASE
+          value: test
         - name: MYSQL_ROOT_PASSWORD
           value: IUB@cs123
         - name: MYSQL_USER
