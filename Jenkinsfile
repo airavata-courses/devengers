@@ -85,6 +85,29 @@ pipeline {
                 }
             }
         }
+        stage('Docker image Build') {
+              steps {
+                    checkout scm
+              sh '''
+                  sudo apt --assume-yes install docker.io
+                  sudo systemctl start docker
+                  sudo systemctl enable docker
+                  python -m pip uninstall -y urllib3
+  		          python -m pip install urllib3==1.22
+                  sudo docker-compose build
+              '''
+              }
+          }
+
+          stage('Docker hub Push Image') {
+              steps {
+                    checkout scm
+              sh '''
+                  sudo docker login --username=devengers --password=DEVENGERS@2019
+                  sudo docker-compose push
+              '''
+              }
+          }
 	    stage('RabbitMQ Service -- on Kubernetes Master') {
             steps {
             sh '''
@@ -97,8 +120,8 @@ pipeline {
 		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
-		sudo kubectl run rabbitmq --image rabbitmq:management &&
-		sudo kubectl expose deployment rabbitmq --port=5672"
+		cd devengers && git checkout develop_new && cd rabbitmq &&
+		sudo kubectl apply -f rabbit-mqconfig.yaml"
             '''
             }
         }
