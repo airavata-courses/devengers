@@ -101,6 +101,7 @@ pipeline {
         stage('Docker hub Push Image') {
             steps {
             sh '''
+	    	sudo apt install gnupg2 pass -y
                 sudo docker login --username=devengers --password=DEVENGERS@2019
                 sudo docker-compose push
             '''    
