@@ -2,7 +2,7 @@ pipeline {
    agent any
    tools {nodejs "InstanceNodeJS"}
    stages{
-   stage('SQL Service -- on Kubernetes Master') {
+		stage('SQL Service -- on Kubernetes Master') {
            steps {
            sh '''
 		chmod 400 id_rsa
@@ -17,11 +17,12 @@ pipeline {
 		cd devengers &&
 		git checkout develop_new &&
 		cd mysql &&
-		sudo kubectl apply -f mysql-deployment.yaml"
+		sudo kubectl apply -f mysql-deployment.yaml &&
+		sudo kubectl apply -f mysql-pv.yaml"
 		'''
            }
-       }
-          stage('SessionService --on Kubernetes Master') {
+       } 
+        stage('SessionService --on Kubernetes Master') {
             steps {
             sh '''
 		chmod 400 id_rsa
