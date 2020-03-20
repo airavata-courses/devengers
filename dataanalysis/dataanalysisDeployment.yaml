@@ -16,6 +16,7 @@ kind: Deployment
 metadata:
   name: dataanalysis
 spec:
+  replicas: 3
   selector:
     matchLabels:
       app: dataanalysis
