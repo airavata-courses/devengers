@@ -9,9 +9,10 @@ spec:
   - protocol: TCP
     port: 8300
     targetPort: 8300
+    nodePort: 32179
   selector:
     app: sessionservice
-  type: ClusterIP
+  type: NodePort
 ---
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
