@@ -28,7 +28,9 @@ If you are skipping the above steps: You could use our configuration-
 
 To run the project by single command:
 
-Put a dummy commit onto the master node and access the URL: 149.165.168.197:8090
+Put a dummy commit onto the master node.
+
+Then, access the Jenkins URL: http://149.165.168.197:8090
 
 Once Prompted with Login Screen use the following credentials:
 
