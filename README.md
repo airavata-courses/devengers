@@ -33,11 +33,12 @@ Put a dummy commit onto the master node and access the URL: 149.165.168.197:8090
 Once Prompted with Login Screen use the following credentials:
 
 Username: DevengersJenkins
-Password: kaustubh
+
+Password: kaustubhst
 
 After login, you will see a build that was automatically triggered by your dummy
 commit.
 
 Once the build is successfull acesss the Application through
 
-http://149.165.169.178:32177
+Application URL : http://149.165.169.178:32177
