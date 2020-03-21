@@ -121,7 +121,7 @@ class SignInSide extends Component {
             Sign In
           </button>
           
-          <SocialLogin />
+          {/* <SocialLogin /> */}
           <div className="row mt-2">
             <Link className="nav-link mx-auto text-info" to="/signup">
               Don't have an account? Sign Up
