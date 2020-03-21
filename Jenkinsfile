@@ -121,7 +121,7 @@ pipeline {
 		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
-		cd devengers && git checkout develop_new && cd rabbitmq &&
+		cd devengers && git checkout master && cd rabbitmq &&
 		sudo kubectl apply -f rabbit-mqconfig.yaml"
             '''
             }
@@ -139,7 +139,7 @@ pipeline {
 		rm -rf devengers &&
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers &&
-		git checkout develop_new &&
+		git checkout master &&
 		cd mysql &&
         sudo kubectl apply -f mysql-pv.yaml &&
 		sudo kubectl apply -f mysql-deployment.yaml"
@@ -158,7 +158,7 @@ pipeline {
 		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
-		cd devengers && git checkout develop_new && cd postgresql &&
+		cd devengers && git checkout master && cd postgresql &&
 		sudo kubectl apply -f postgres-storage.yaml &&
 		sudo kubectl apply -f postgres-deployment.yaml && sudo kubectl apply -f postgres-service.yaml"
             '''    
@@ -176,7 +176,7 @@ pipeline {
 		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
-		cd devengers && git checkout develop_new && cd Usermanagement_API_Gateway &&
+		cd devengers && git checkout master && cd Usermanagement_API_Gateway &&
 		sudo kubectl apply -f um-apiDeployment.yaml --validate=false"
             '''
             }
@@ -193,7 +193,7 @@ pipeline {
 		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
-		cd devengers && git checkout develop_new && cd Frontend &&
+		cd devengers && git checkout master && cd Frontend &&
 		sudo kubectl apply -f uiDeployment.yaml --validate=false"
             '''
             }
@@ -210,7 +210,7 @@ pipeline {
 		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
-		cd devengers && git checkout develop_new && cd db-service &&
+		cd devengers && git checkout master && cd db-service &&
 		sudo kubectl apply -f dbDeployment.yaml --validate=false"
             '''
             }
@@ -227,7 +227,7 @@ pipeline {
 		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
-		cd devengers && git checkout develop_new && cd dataretrieval &&
+		cd devengers && git checkout master && cd dataretrieval &&
 		sudo kubectl apply -f dataretrievalDeployment.yaml --validate=false"
             '''
             }
@@ -244,7 +244,7 @@ pipeline {
 		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
-		cd devengers && git checkout develop_new && cd datamodelling &&
+		cd devengers && git checkout master && cd datamodelling &&
 		sudo kubectl apply -f datamodellingDeployment.yaml --validate=false"
             '''
             }
@@ -262,7 +262,7 @@ pipeline {
 		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
-		cd devengers && git checkout develop_new && cd dataanalysis &&
+		cd devengers && git checkout master && cd dataanalysis &&
 		sudo kubectl apply -f dataanalysisDeployment.yaml --validate=false"
             '''
             }
