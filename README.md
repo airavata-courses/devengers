@@ -23,7 +23,6 @@ If you are skipping the above steps: You could use our configuration-
 3. Kubernetes Worker Node 1 IP: 149.165.169.133
 4. Kubernetes Worker Node 2 IP: 149.165.169.83
 
-For Session Data to be Visible please add Plugin : "moesif cors" in your browser. 
 
 To run the project by single command:
 
@@ -42,4 +41,6 @@ commit.
 
 Once the build is successfull acesss the Application through
 
-Application URL : http://149.165.169.178:32177
+Application URL : http://149.165.169.178:32177 
+
+For Session Data to be Visible please add Plugin : "moesif cors" in your browser. 
