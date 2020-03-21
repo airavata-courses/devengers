@@ -16,6 +16,7 @@ kind: Deployment
 metadata:
   name: datamodel
 spec:
+  replicas: 3
   selector:
     matchLabels:
       app: datamodel

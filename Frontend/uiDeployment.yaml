@@ -5,7 +5,7 @@ metadata:
   labels:
     app: ui
 spec:
- type: NodePort
+ type: LoadBalancer
  ports:
   - port: 3000
     targetPort: 3000
@@ -20,6 +20,7 @@ metadata:
   labels:
     app: ui
 spec:
+  replicas: 3
   selector:
     matchLabels:
       app: ui

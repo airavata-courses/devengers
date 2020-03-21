@@ -2,7 +2,7 @@ pipeline {
    agent any
    tools {nodejs "InstanceNodeJS"}
    stages{
-		stage('Build Application') {
+       stage('Build Application') {
             steps {
                 sh 'mvn -f db-service/pom.xml clean package'
             }
@@ -85,6 +85,7 @@ pipeline {
                 }
             }
         }
+
         stage('Docker image Build') {
               steps {
                     checkout scm

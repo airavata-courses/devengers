@@ -7,7 +7,7 @@ metadata:
 spec:
   selector:
     app: um-api
-  type: NodePort
+  type: LoadBalancer
   ports:
   - port: 8080
     targetPort: 32178
@@ -20,6 +20,7 @@ metadata:
   labels:
     app: um-api
 spec:
+  replicas: 3
   selector:
     matchLabels:
       app: um-api
