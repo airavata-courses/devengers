@@ -34,7 +34,7 @@ Once Prompted with Login Screen use the following credentials:
 
 Username: DevengersJenkins
 
-Password: kaustubhst
+Password: kaustubh
 
 After login, you will see a build that was automatically triggered by your dummy
 commit.
