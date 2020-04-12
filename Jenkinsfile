@@ -178,7 +178,7 @@ pipeline {
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers && git checkout master && cd Usermanagement_API_Gateway &&
 		sudo kubectl delete service datamodel dataanalysis dataretrieval sessionservice ui um-api &&
-		sudo kubectl delete deployment --all && sudo kubectl apply -f um-apiDeployment.yaml --validate=false"
+		sudo kubectl delete deployment datamodel dataanalysis dataretrieval sessionservice ui um-api && sudo kubectl apply -f um-apiDeployment.yaml --validate=false"
             '''
             }
         }
