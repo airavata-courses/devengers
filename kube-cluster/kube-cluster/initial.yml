@@ -1,16 +1,16 @@
 - hosts: all
   become: yes
   tasks:
-    - name: create the 'ubuntu' user
-      user: name=ubuntu append=yes state=present createhome=yes shell=/bin/bash
+    - name: create the 'asim' user
+      user: name=asim append=yes state=present createhome=yes shell=/bin/bash
 
-    - name: allow 'ubuntu' to have passwordless sudo
+    - name: allow 'asim' to have passwordless sudo
       lineinfile:
         dest: /etc/sudoers
-        line: 'ubuntu ALL=(ALL) NOPASSWD: ALL'
+        line: 'asim ALL=(ALL) NOPASSWD: ALL'
         validate: 'visudo -cf %s'
 
-    - name: set up authorized keys for the ubuntu user
-      authorized_key: user=ubuntu key="{{item}}"
+    - name: set up authorized keys for the asim user
+      authorized_key: user=asim key="{{item}}"
       with_file:
-        - ~/.ssh/id_rsa.pub
+        - ~/.ssh/devenger-api-key.pub
