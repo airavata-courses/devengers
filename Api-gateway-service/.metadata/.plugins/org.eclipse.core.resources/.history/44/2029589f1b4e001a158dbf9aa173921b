@@ -1,0 +1,38 @@
+package com.devengers.sessionhandling.sessionservice.model;
+
+import java.util.List;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ConfigurationProperties(prefix = "rabbitmq")
+public class UserSessionDetails {
+
+    private int userId;
+    private int correlationid;
+
+    public UserSessionDetails() {
+    }
+
+    public UserSessionDetails(int userid, int correlationid, int no_of_files) {
+        this.userId = userid;
+        this.correlationid = correlationid;
+    }
+
+    public int getUserName() {
+        return userId;
+    }
+
+    public void setUserName(int userid) {
+        this.userId = userId;
+    }
+
+    public List<String> getQuotes() {
+        return quotes;
+    }
+
+    public void setQuotes(List<String> quotes) {
+        this.quotes = quotes;
+    }
+}

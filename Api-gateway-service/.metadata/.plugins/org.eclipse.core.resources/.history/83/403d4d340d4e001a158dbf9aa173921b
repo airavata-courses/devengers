@@ -1,0 +1,5 @@
+package com.devengers.sessionhandling.sessionservice;
+
+public class AMQPConfig {
+
+}

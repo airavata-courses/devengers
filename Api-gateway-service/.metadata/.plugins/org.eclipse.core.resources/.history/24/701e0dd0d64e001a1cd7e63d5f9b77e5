@@ -1,0 +1,43 @@
+package com.devengers.service.sessionmanagement.controller;
+
+import com.devengers.service.sessionmanagement.model.UserSessionDetail;
+import com.devengers.service.sessionmanagement.repository.SessionDetailsRepository;
+
+import org.json.JSONObject;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessageListener;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@RestController
+@ComponentScan
+@RequestMapping("/rest/db")
+public class SessionServiceResource {
+	String str ="";
+	
+	@Autowired
+    SessionDetailsRepository quotesRepository;
+
+    public void details(UserSessionDetail user) {
+    	System.out.println("HIIIIIII");
+    	System.out.println(user.getUserid());
+    	System.out.println("user: "+user);
+		quotesRepository.save(user);
+		System.out.println("sdbifb"+user.getUserid());
+	}
+
+
+	@GetMapping("/{userId}")
+    public Iterable<UserSessionDetail> getUserInformation(@PathVariable("userid") final String userId) {
+    	System.out.println("gjhgk"+quotesRepository.findAll());
+    	System.out.println("KAUSTUBHHHHHHH "+quotesRepository.findAll());
+        return quotesRepository.findOne(userId);
+    }
+
+}

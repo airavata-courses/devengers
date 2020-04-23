@@ -1,0 +1,75 @@
+package com.devengers.service.sessionmanagement.controller;
+
+import com.devengers.service.sessionmanagement.model.UserSessionDetail;
+
+import org.json.JSONObject;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessageListener;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@RestController
+@ComponentScan
+@RequestMapping("/rest/db")
+public class SessionServiceResource {
+	String str ="";
+	
+	@Autowired
+    SessionDetailsRepository quotesRepository;
+
+    public void details(UserSessionDetail user) {
+    	System.out.println("HIIIIIII");
+    	System.out.println(user.getUserId());
+    	System.out.println("user: "+user);
+		quotesRepository.save(user);
+		System.out.println("sdbifb"+user.getUserId());
+	}
+
+
+	@GetMapping("/{userId}")
+    public Iterable<UserSessionDetail> getUserInformation(@PathVariable("username") final int userId) {
+    	System.out.println("gjhgk"+quotesRepository.findAll());
+        return quotesRepository.findAll();
+    }
+    
+    
+   
+		
+
+//    @PostMapping("/add")
+//    public List<Integer> add(@RequestBody final UserSessionDetails quotes) {
+//
+//        quotes.getQuotes()
+//                .stream()
+//                .map(quote -> new UserSessionDetail(quotes.getUserName(), quote))
+//                .forEach(quote -> quotesRepository.save(quote));
+//        return getQuotesByUserName(quotes.getUserName());
+//    }
+
+
+//    @PostMapping("/delete/{username}")
+//    public List<Integer> delete(@PathVariable("username") final int username) {
+//
+//        List<UserSessionDetail> quotes = quotesRepository.findByUserName(username);
+//        quotesRepository.delete(quotes);
+//
+//        return getQuotesByUserName(username);
+//    }
+
+
+//    private List<Integer> getQuotesByUserName(@PathVariable("username") int i) {
+//        return quotesRepository.findByUserName(i)
+//                .stream()
+//                .map(UserSessionDetail::getQuote)
+//                .collect(Collectors.toList());
+//    }
+//
+
+
+}

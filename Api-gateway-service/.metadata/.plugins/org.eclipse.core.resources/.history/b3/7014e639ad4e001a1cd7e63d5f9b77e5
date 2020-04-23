@@ -1,0 +1,13 @@
+package com.devengers.service.sessionmangement.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import com.devengers.service.sessionmangement.model.UserSessionDetail;
+
+import java.util.List;
+@Repository
+public interface SessionDetailsRepository extends JpaRepository<UserSessionDetail, Integer> {
+    List<UserSessionDetail> findByUserName(int i);
+}

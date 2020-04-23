@@ -1,0 +1,8 @@
+spring.application.name=db-service
+server.port=8300
+spring.rabbitmq.host=localhost
+spring.rabbitmq.port=15672
+spring.rabbitmq.username=guest
+spring.rabbitmq.password=guest
+javainuse.rabbitmq.queue=service-api
+server.port=8081

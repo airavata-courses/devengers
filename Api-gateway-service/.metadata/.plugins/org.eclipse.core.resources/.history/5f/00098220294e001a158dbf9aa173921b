@@ -1,0 +1,11 @@
+package com.devengers.sessionhandling.sessionservice.repository;
+
+import org.springframework.data.repository.CrudRepository;
+
+import com.devengers.sessionhandling.sessionservice.model.UserSessionDetail;
+
+import java.util.List;
+
+public interface SessionDetailsRepository extends CrudRepository<UserSessionDetail, int> {
+    List<UserSessionDetail> findByUserName(int i);
+}

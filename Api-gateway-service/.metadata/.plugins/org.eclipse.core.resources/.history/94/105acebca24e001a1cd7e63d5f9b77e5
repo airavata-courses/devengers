@@ -1,0 +1,80 @@
+package com.devengers.service.sessionmangement.controller;
+
+import com.devengers.service.sessionmangement.model.UserSessionDetail;
+import com.devengers.service.sessionmangement.repository.SessionDetailsRepository;
+
+import org.springframework.amqp.rabbit.listener.FatalExceptionStrategy;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.bind.annotation.*;
+
+
+@RestController
+@ComponentScan
+@RequestMapping("/rest/db")
+public class SessionServiceResource implements FatalExceptionStrategy {
+	String str ="";
+	@Autowired
+	static
+    SessionDetailsRepository quotesRepository;
+	private Logger logger = LoggerFactory.getLogger(getClass());
+	 
+
+
+    public void details(UserSessionDetail user) {
+		quotesRepository.save(user);
+		System.out.println("sdbifb"+user.getUserId());
+	}
+
+	@GetMapping("/{userId}")
+    public Iterable<UserSessionDetail> getUserInformation(@PathVariable("username") final int userId) {
+    	System.out.println("gjhgk"+quotesRepository.findAll());
+        return quotesRepository.findAll();
+    }
+
+	@Override
+	public boolean isFatal(Throwable t) {
+		  if (t instanceof ListenerExecutionFailedException &&
+		          (t.getCause() instanceof MessageConversionException ||
+		           t.getCause() instanceof MethodArgumentNotValidException)) {
+		      logger.warn("Fatal message conversion error; message rejected; it will be dropped: {}",
+		                  ((ListenerExecutionFailedException) t).getFailedMessage());
+		      return true;
+		    }
+		    return false;
+		  }
+x
+		return false;
+	}
+
+//    @PostMapping("/add")
+//    public List<Integer> add(@RequestBody final UserSessionDetails quotes) {
+//
+//        quotes.getQuotes()
+//                .stream()
+//                .map(quote -> new UserSessionDetail(quotes.getUserName(), quote))
+//                .forEach(quote -> quotesRepository.save(quote));
+//        return getQuotesByUserName(quotes.getUserName());
+//    }
+
+
+//    @PostMapping("/delete/{username}")
+//    public List<Integer> delete(@PathVariable("username") final int username) {
+//
+//        List<UserSessionDetail> quotes = quotesRepository.findByUserName(username);
+//        quotesRepository.delete(quotes);
+//
+//        return getQuotesByUserName(username);
+//    }
+
+
+//    private List<Integer> getQuotesByUserName(@PathVariable("username") int i) {
+//        return quotesRepository.findByUserName(i)
+//                .stream()
+//                .map(UserSessionDetail::getQuote)
+//                .collect(Collectors.toList());
+//    }
+//
+
+
+}

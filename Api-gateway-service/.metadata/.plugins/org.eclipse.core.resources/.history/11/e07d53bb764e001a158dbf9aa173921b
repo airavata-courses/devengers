@@ -1,0 +1,47 @@
+package com.devengers.sessionhandling.sessionservice.model;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "quotes", catalog = "test")
+public class UserSessionDetail {
+
+		@Id
+		private int userId;
+	    private int correlationId;
+	    private int no_of_files;
+
+		public UserSessionDetail() {
+	    }
+
+	    public UserSessionDetail(int userId, int correlationId, int no_of_files ) {
+	        this.userId = userId;
+	        this.correlationId = correlationId;
+	        this.no_of_files = no_of_files;
+	    }
+
+	    public int getUserId() {
+	        return userId;
+	    }
+
+	    public void setUserId(int userName) {
+	        this.userId = userName;
+	    }
+
+	    public int getCorrelationId() {
+	        return correlationId;
+	    }
+
+	    public void setCorrelationId(int quotes) {
+	        this.correlationId = quotes;
+	    }
+
+	    public int getNo_of_files() {
+			return no_of_files;
+		}
+
+		public void setNo_of_files(int no_of_files) {
+			this.no_of_files = no_of_files;
+		}
+
+}
