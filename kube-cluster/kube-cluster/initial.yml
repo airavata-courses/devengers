@@ -13,4 +13,4 @@
     - name: set up authorized keys for the asim user
       authorized_key: user=asim key="{{item}}"
       with_file:
-        - ~/.ssh/devenger-api-key.pub
+        - ~/.ssh/id_rsa.pub

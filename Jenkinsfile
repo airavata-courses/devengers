@@ -113,8 +113,8 @@ pipeline {
             steps {
             sh '''
 		chmod 400 id_rsa
-		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
-		ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass -y &&
+		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@129.114.104.27 uptime
+		ssh -i id_rsa ubuntu@129.114.104.27 "sudo apt install gnupg2 pass -y &&
 		sudo apt install git -y &&
 		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get update &&
@@ -130,8 +130,8 @@ pipeline {
            steps {
            sh '''
 		chmod 400 id_rsa
-		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
-		ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass -y &&
+		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@129.114.104.27 uptime
+		ssh -i id_rsa ubuntu@129.114.104.27 "sudo apt install gnupg2 pass -y &&
 		sudo apt install git -y &&
 		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get upgrade -y &&
@@ -150,8 +150,8 @@ pipeline {
             steps {
              sh '''
 		chmod 400 id_rsa
-		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
-		ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass -y &&
+		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@129.114.104.27 uptime
+		ssh -i id_rsa ubuntu@129.114.104.27 "sudo apt install gnupg2 pass -y &&
 		sudo apt install git -y &&
 		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get upgrade -y &&
@@ -168,8 +168,8 @@ pipeline {
             steps {
             sh '''
 		chmod 400 id_rsa
-		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
-		ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass -y &&
+		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@129.114.104.27 uptime
+		ssh -i id_rsa ubuntu@129.114.104.27 "sudo apt install gnupg2 pass -y &&
 		sudo apt install git -y &&
 		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get update &&
@@ -186,8 +186,8 @@ pipeline {
             steps {
             sh '''
 		chmod 400 id_rsa
-		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
-		ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass -y &&
+		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@129.114.104.27 uptime
+		ssh -i id_rsa ubuntu@129.114.104.27 "sudo apt install gnupg2 pass -y &&
 		sudo apt install git -y &&
 		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get update &&
@@ -203,8 +203,8 @@ pipeline {
             steps {
             sh '''
 		chmod 400 id_rsa
-		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
-		ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass -y &&
+		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@129.114.104.27 uptime
+		ssh -i id_rsa ubuntu@129.114.104.27 "sudo apt install gnupg2 pass -y &&
 		sudo apt install git -y &&
 		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get update &&
@@ -220,8 +220,8 @@ pipeline {
             steps {
             sh '''
 		chmod 400 id_rsa
-		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
-		ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass -y &&
+		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@129.114.104.27 uptime
+		ssh -i id_rsa ubuntu@129.114.104.27 "sudo apt install gnupg2 pass -y &&
 		sudo apt install git -y &&
 		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get update &&
@@ -237,8 +237,8 @@ pipeline {
             steps {
             sh '''
 		chmod 400 id_rsa
-		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
-		ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass -y &&
+		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@129.114.104.27 uptime
+		ssh -i id_rsa ubuntu@129.114.104.27 "sudo apt install gnupg2 pass -y &&
 		sudo apt install git -y &&
 		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get update &&
@@ -255,8 +255,8 @@ pipeline {
             steps {
             sh '''
 		chmod 400 id_rsa
-		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
-		ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass -y &&
+		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@129.114.104.27 uptime
+		ssh -i id_rsa ubuntu@129.114.104.27 "sudo apt install gnupg2 pass -y &&
 		sudo apt install git -y &&
 		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get update &&
