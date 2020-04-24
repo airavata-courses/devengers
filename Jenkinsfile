@@ -58,7 +58,7 @@ pipeline {
 		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
-		cd devengers && git checkout master && cd Usermanagement_API_Gateway &&
+		cd devengers && git checkout develop_um-api && cd Usermanagement_API_Gateway &&
 		sudo kubectl delete service um-api &&
 		sudo kubectl delete deployment um-api && sudo kubectl apply -f um-apiDeployment.yaml --validate=false"
             '''
