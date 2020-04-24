@@ -104,6 +104,7 @@ pipeline {
               steps {
                     checkout scm
               sh '''
+	      	  sudo apt install gnupg2 pass -y
                   sudo docker login --username=devengers --password=DEVENGERS@2019
                   sudo docker-compose push
               '''
@@ -113,15 +114,15 @@ pipeline {
             steps {
             sh '''
 		chmod 400 id_rsa
-		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
-		ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass -y &&
+		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.171.75 uptime
+		ssh -i id_rsa ubuntu@149.165.171.75 "sudo apt install gnupg2 pass -y &&
 		sudo apt install git -y &&
 		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get update &&
 		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
-		cd devengers && git checkout master && cd rabbitmq &&
+		cd devengers && git checkout IstioPart3 && cd rabbitmq &&
 		sudo kubectl apply -f rabbit-mqconfig.yaml"
             '''
             }
@@ -130,8 +131,8 @@ pipeline {
            steps {
            sh '''
 		chmod 400 id_rsa
-		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
-		ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass -y &&
+		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.171.75 uptime
+		ssh -i id_rsa ubuntu@149.165.171.75 "sudo apt install gnupg2 pass -y &&
 		sudo apt install git -y &&
 		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get upgrade -y &&
@@ -139,7 +140,7 @@ pipeline {
 		rm -rf devengers &&
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers &&
-		git checkout master &&
+		git checkout IstioPart3 &&
 		cd mysql &&
         sudo kubectl apply -f mysql-pv.yaml &&
 		sudo kubectl apply -f mysql-deployment.yaml"
@@ -150,15 +151,15 @@ pipeline {
             steps {
              sh '''
 		chmod 400 id_rsa
-		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
-		ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass -y &&
+		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.171.75 uptime
+		ssh -i id_rsa ubuntu@149.165.171.75 "sudo apt install gnupg2 pass -y &&
 		sudo apt install git -y &&
 		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get upgrade -y &&
 		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
-		cd devengers && git checkout master && cd postgresql &&
+		cd devengers && git checkout IstioPart3 && cd postgresql &&
 		sudo kubectl apply -f postgres-storage.yaml &&
 		sudo kubectl apply -f postgres-deployment.yaml && sudo kubectl apply -f postgres-service.yaml"
             '''    
@@ -168,17 +169,16 @@ pipeline {
             steps {
             sh '''
 		chmod 400 id_rsa
-		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
-		ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass -y &&
+		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.171.75 uptime
+		ssh -i id_rsa ubuntu@149.165.171.75 "sudo apt install gnupg2 pass -y &&
 		sudo apt install git -y &&
 		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get update &&
 		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
-		cd devengers && git checkout master && cd Usermanagement_API_Gateway &&
-		sudo kubectl delete service datamodel dataanalysis dataretrieval sessionservice ui um-api &&
-		sudo kubectl delete deployment datamodel dataanalysis dataretrieval sessionservice ui um-api && sudo kubectl apply -f um-apiDeployment.yaml --validate=false"
+		cd devengers && git checkout IstioPart3 && cd Usermanagement_API_Gateway &&
+		sudo kubectl apply -f um-apiDeployment.yaml --validate=false"
             '''
             }
         }
@@ -186,15 +186,15 @@ pipeline {
             steps {
             sh '''
 		chmod 400 id_rsa
-		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
-		ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass -y &&
+		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.171.75 uptime
+		ssh -i id_rsa ubuntu@149.165.171.75 "sudo apt install gnupg2 pass -y &&
 		sudo apt install git -y &&
 		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get update &&
 		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
-		cd devengers && git checkout master && cd Frontend &&
+		cd devengers && git checkout IstioPart3 && cd Frontend &&
 		sudo kubectl apply -f uiDeployment.yaml --validate=false"
             '''
             }
@@ -203,15 +203,15 @@ pipeline {
             steps {
             sh '''
 		chmod 400 id_rsa
-		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
-		ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass -y &&
+		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.171.75 uptime
+		ssh -i id_rsa ubuntu@149.165.171.75 "sudo apt install gnupg2 pass -y &&
 		sudo apt install git -y &&
 		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get update &&
 		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
-		cd devengers && git checkout master && cd db-service &&
+		cd devengers && git checkout IstioPart3 && cd db-service &&
 		sudo kubectl apply -f dbDeployment.yaml --validate=false"
             '''
             }
@@ -220,15 +220,15 @@ pipeline {
             steps {
             sh '''
 		chmod 400 id_rsa
-		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
-		ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass -y &&
+		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.171.75 uptime
+		ssh -i id_rsa ubuntu@149.165.171.75 "sudo apt install gnupg2 pass -y &&
 		sudo apt install git -y &&
 		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get update &&
 		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
-		cd devengers && git checkout master && cd dataretrieval &&
+		cd devengers && git checkout IstioPart3 && cd dataretrieval &&
 		sudo kubectl apply -f dataretrievalDeployment.yaml --validate=false"
             '''
             }
@@ -237,15 +237,15 @@ pipeline {
             steps {
             sh '''
 		chmod 400 id_rsa
-		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
-		ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass -y &&
+		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.171.75 uptime
+		ssh -i id_rsa ubuntu@149.165.171.75 "sudo apt install gnupg2 pass -y &&
 		sudo apt install git -y &&
 		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get update &&
 		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
-		cd devengers && git checkout master && cd datamodelling &&
+		cd devengers && git checkout IstioPart3 && cd datamodelling &&
 		sudo kubectl apply -f datamodellingDeployment.yaml --validate=false"
             '''
             }
@@ -255,15 +255,15 @@ pipeline {
             steps {
             sh '''
 		chmod 400 id_rsa
-		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.169.178 uptime
-		ssh -i id_rsa ubuntu@149.165.169.178 "sudo apt install gnupg2 pass -y &&
+		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@149.165.171.75 uptime
+		ssh -i id_rsa ubuntu@149.165.171.75 "sudo apt install gnupg2 pass -y &&
 		sudo apt install git -y &&
 		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get update &&
 		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
-		cd devengers && git checkout master && cd dataanalysis &&
+		cd devengers && git checkout IstioPart3 && cd dataanalysis &&
 		sudo kubectl apply -f dataanalysisDeployment.yaml --validate=false"
             '''
             }
