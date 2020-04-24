@@ -1,0 +1,36 @@
+1) Download istio setup. There are two options
+Reference : https://istio.io/docs/setup getting-started/#download
+
+- Go to below url and and download tar.gz(linux) or win.zip(windows) latest version
+https://github.com/istio/istio/releases/tag/1.5.1
+OR
+- Type the below command 
+curl -L https://istio.io/downloadIstio | sh -
+
+2) extract and the path  (path to your istiofolder)/bin to your path environment variable.
+
+3) type istioctl in command prompt/terminal.
+If not working check the path variable again.
+
+*************************************************************
+Do either  4,5 (default profile) OR 6 (demo profile)
+4) istioctl profile dump  default > raw_default_profile.yaml
+
+5) Since this is a default profile, it comes with
+minimum features. Open the file and enable the features you want.
+NOTE: The file might appear displaced.
+Change the encoding to UTF-16LE in your editor.
+
+6) istioctl profile dump demo > raw_default_profile.yaml
+Note: demo profile is full fledged profile with all features enables. Good for learning purpose. But for production
+environment default profile is preferred.
+
+*************************************************************
+7) istioctl manifest generate -f .\raw_default_profile.yaml
+--set values.global.jwtPolicy=first-party-jwt > istio_configuration.yaml
+
+reference : https://istio.io/docs/ops/best-practices/security/#configure-third-party-service-account-tokens
+
+8) 
+
+
