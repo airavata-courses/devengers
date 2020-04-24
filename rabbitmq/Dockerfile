@@ -1,2 +1,0 @@
-FROM rabbitmq:management
-EXPOSE 5672 15672 25672 15671 5671
