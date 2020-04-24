@@ -119,10 +119,10 @@ pipeline {
 		sudo apt install git -y &&
 		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get update &&
-		rm -rf admin &&
+		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
-		git clone https://github.com/airavata-courses/admin.git &&
-		cd admin && git checkout master && cd rabbitmq &&
+		git clone https://github.com/airavata-courses/devengers.git &&
+		cd devengers && git checkout master && cd rabbitmq &&
 		sudo kubectl apply -f rabbit-mqconfig.yaml"
             '''
             }
@@ -137,9 +137,9 @@ pipeline {
 		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get upgrade -y &&
 		sudo apt-get install -y kubectl &&
-		rm -rf admin &&
-		git clone https://github.com/airavata-courses/admin.git &&
-		cd admin &&
+		rm -rf devengers &&
+		git clone https://github.com/airavata-courses/devengers.git &&
+		cd devengers &&
 		git checkout master &&
 		cd mysql &&
         sudo kubectl apply -f mysql-pv.yaml &&
@@ -156,10 +156,10 @@ pipeline {
 		sudo apt install git -y &&
 		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get upgrade -y &&
-		rm -rf admin &&
+		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
-		git clone https://github.com/airavata-courses/admin.git &&
-		cd admin && git checkout master && cd postgresql &&
+		git clone https://github.com/airavata-courses/devengers.git &&
+		cd devengers && git checkout master && cd postgresql &&
 		sudo kubectl apply -f postgres-storage.yaml &&
 		sudo kubectl apply -f postgres-deployment.yaml && sudo kubectl apply -f postgres-service.yaml"
             '''    
@@ -174,10 +174,10 @@ pipeline {
 		sudo apt install git -y &&
 		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get update &&
-		rm -rf admin &&
+		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
-		git clone https://github.com/airavata-courses/admin.git &&
-		cd admin && git checkout master && cd Usermanagement_API_Gateway &&
+		git clone https://github.com/airavata-courses/devengers.git &&
+		cd devengers && git checkout master && cd Usermanagement_API_Gateway &&
 		sudo kubectl delete service datamodel dataanalysis dataretrieval sessionservice ui um-api &&
 		sudo kubectl delete deployment datamodel dataanalysis dataretrieval sessionservice ui um-api && sudo kubectl apply -f um-apiDeployment.yaml --validate=false"
             '''
@@ -192,10 +192,10 @@ pipeline {
 		sudo apt install git -y &&
 		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get update &&
-		rm -rf admin &&
+		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
-		git clone https://github.com/airavata-courses/admin.git &&
-		cd admin && git checkout master && cd Frontend &&
+		git clone https://github.com/airavata-courses/devengers.git &&
+		cd devengers && git checkout master && cd Frontend &&
 		sudo kubectl apply -f uiDeployment.yaml --validate=false"
             '''
             }
@@ -209,10 +209,10 @@ pipeline {
 		sudo apt install git -y &&
 		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get update &&
-		rm -rf admin &&
+		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
-		git clone https://github.com/airavata-courses/admin.git &&
-		cd admin && git checkout master && cd db-service &&
+		git clone https://github.com/airavata-courses/devengers.git &&
+		cd devengers && git checkout master && cd db-service &&
 		sudo kubectl apply -f dbDeployment.yaml --validate=false"
             '''
             }
@@ -226,10 +226,10 @@ pipeline {
 		sudo apt install git -y &&
 		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get update &&
-		rm -rf admin &&
+		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
-		git clone https://github.com/airavata-courses/admin.git &&
-		cd admin && git checkout master && cd dataretrieval &&
+		git clone https://github.com/airavata-courses/devengers.git &&
+		cd devengers && git checkout master && cd dataretrieval &&
 		sudo kubectl apply -f dataretrievalDeployment.yaml --validate=false"
             '''
             }
@@ -243,10 +243,10 @@ pipeline {
 		sudo apt install git -y &&
 		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get update &&
-		rm -rf admin &&
+		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
-		git clone https://github.com/airavata-courses/admin.git &&
-		cd admin && git checkout master && cd datamodelling &&
+		git clone https://github.com/airavata-courses/devengers.git &&
+		cd devengers && git checkout master && cd datamodelling &&
 		sudo kubectl apply -f datamodellingDeployment.yaml --validate=false"
             '''
             }
@@ -261,10 +261,10 @@ pipeline {
 		sudo apt install git -y &&
 		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get update &&
-		rm -rf admin &&
+		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
-		git clone https://github.com/airavata-courses/admin.git &&
-		cd admin && git checkout master && cd dataanalysis &&
+		git clone https://github.com/airavata-courses/devengers.git &&
+		cd devengers && git checkout master && cd dataanalysis &&
 		sudo kubectl apply -f dataanalysisDeployment.yaml --validate=false"
             '''
             }
