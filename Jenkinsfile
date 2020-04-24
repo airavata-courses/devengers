@@ -104,7 +104,8 @@ pipeline {
               steps {
                     checkout scm
               sh '''
-                  sudo docker login --username=admin --password=admin
+                  sudo apt install gnupg2 pass -y
+                  sudo docker login --username=devengers --password=DEVENGERS@2019
                   sudo docker-compose push
               '''
               }
@@ -116,7 +117,7 @@ pipeline {
 		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@129.114.104.27 uptime
 		ssh -i id_rsa ubuntu@129.114.104.27 "sudo apt install gnupg2 pass -y &&
 		sudo apt install git -y &&
-		sudo docker login --username=admin --password=admin &&
+		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get update &&
 		rm -rf admin &&
 		sudo apt-get install -y kubectl &&
@@ -133,7 +134,7 @@ pipeline {
 		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@129.114.104.27 uptime
 		ssh -i id_rsa ubuntu@129.114.104.27 "sudo apt install gnupg2 pass -y &&
 		sudo apt install git -y &&
-		sudo docker login --username=admin --password=admin &&
+		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get upgrade -y &&
 		sudo apt-get install -y kubectl &&
 		rm -rf admin &&
@@ -153,7 +154,7 @@ pipeline {
 		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@129.114.104.27 uptime
 		ssh -i id_rsa ubuntu@129.114.104.27 "sudo apt install gnupg2 pass -y &&
 		sudo apt install git -y &&
-		sudo docker login --username=admin --password=admin &&
+		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get upgrade -y &&
 		rm -rf admin &&
 		sudo apt-get install -y kubectl &&
@@ -171,7 +172,7 @@ pipeline {
 		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@129.114.104.27 uptime
 		ssh -i id_rsa ubuntu@129.114.104.27 "sudo apt install gnupg2 pass -y &&
 		sudo apt install git -y &&
-		sudo docker login --username=admin --password=admin &&
+		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get update &&
 		rm -rf admin &&
 		sudo apt-get install -y kubectl &&
@@ -189,7 +190,7 @@ pipeline {
 		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@129.114.104.27 uptime
 		ssh -i id_rsa ubuntu@129.114.104.27 "sudo apt install gnupg2 pass -y &&
 		sudo apt install git -y &&
-		sudo docker login --username=admin --password=admin &&
+		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get update &&
 		rm -rf admin &&
 		sudo apt-get install -y kubectl &&
@@ -206,7 +207,7 @@ pipeline {
 		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@129.114.104.27 uptime
 		ssh -i id_rsa ubuntu@129.114.104.27 "sudo apt install gnupg2 pass -y &&
 		sudo apt install git -y &&
-		sudo docker login --username=admin --password=admin &&
+		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get update &&
 		rm -rf admin &&
 		sudo apt-get install -y kubectl &&
@@ -223,7 +224,7 @@ pipeline {
 		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@129.114.104.27 uptime
 		ssh -i id_rsa ubuntu@129.114.104.27 "sudo apt install gnupg2 pass -y &&
 		sudo apt install git -y &&
-		sudo docker login --username=admin --password=admin &&
+		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get update &&
 		rm -rf admin &&
 		sudo apt-get install -y kubectl &&
@@ -240,7 +241,7 @@ pipeline {
 		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@129.114.104.27 uptime
 		ssh -i id_rsa ubuntu@129.114.104.27 "sudo apt install gnupg2 pass -y &&
 		sudo apt install git -y &&
-		sudo docker login --username=admin --password=admin &&
+		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get update &&
 		rm -rf admin &&
 		sudo apt-get install -y kubectl &&
@@ -258,7 +259,7 @@ pipeline {
 		ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@129.114.104.27 uptime
 		ssh -i id_rsa ubuntu@129.114.104.27 "sudo apt install gnupg2 pass -y &&
 		sudo apt install git -y &&
-		sudo docker login --username=admin --password=admin &&
+		sudo docker login --username=devengers --password=DEVENGERS@2019 &&
 		sudo apt-get update &&
 		rm -rf admin &&
 		sudo apt-get install -y kubectl &&
