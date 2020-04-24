@@ -37,7 +37,7 @@ pipeline {
 		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
-		cd devengers && git checkout master && cd Frontend &&
+		cd devengers && git checkout develop_ui && cd Frontend &&
         sudo kubectl delete service ui &&
 		sudo kubectl delete ui &&
 		sudo kubectl apply -f uiDeployment.yaml --validate=false"
