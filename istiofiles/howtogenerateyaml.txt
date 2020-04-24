@@ -28,9 +28,15 @@ environment default profile is preferred.
 *************************************************************
 7) istioctl manifest generate -f .\raw_default_profile.yaml
 --set values.global.jwtPolicy=first-party-jwt > istio_configuration.yaml
+Note: Now you have a proper kubernetes yaml file.
+You can use kubectl to run this yaml.
+kubectl apply -f .\istio_configuration.yaml
 
-reference : https://istio.io/docs/ops/best-practices/security/#configure-third-party-service-account-tokens
+Note : If you see any error like
+"istio-system" namespace not found
+then just run the above ccommand again.
+**********************************************************
 
-8) 
+
 
 
