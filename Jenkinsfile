@@ -39,7 +39,7 @@ pipeline {
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers && git checkout develop_ui && cd Frontend &&
        		sudo kubectl delete service ui &&
-		sudo kubectl delete development ui &&
+		sudo kubectl delete deployment ui &&
 		sudo kubectl apply -f uiDeployment.yaml --validate=false"
             '''
             }
