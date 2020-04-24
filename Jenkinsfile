@@ -2,6 +2,7 @@ pipeline {
    agent any
    tools {nodejs "InstanceNodeJS"}
    stages{
+
        stage('Build Application') {
             steps {
                 sh 'mvn -f db-service/pom.xml clean package'
@@ -14,6 +15,7 @@ pipeline {
             }
         }
 
+        /*
         stage('Install dependencies for Node') {
             steps {
                 dir('Usermanagement_API_Gateway/Backend/') {
@@ -109,8 +111,9 @@ pipeline {
                   sudo docker-compose push
               '''
               }
-          }
-	    stage('RabbitMQ Service -- on Kubernetes Master') {
+          }*/
+
+	    stage('RabbitMQ Service -- on Kubernetes servicemesh_asim') {
             steps {
             sh '''
 		chmod 400 id_rsa
@@ -122,12 +125,12 @@ pipeline {
 		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
-		cd devengers && git checkout master && cd rabbitmq &&
+		cd devengers && git checkout servicemesh_asim && cd rabbitmq &&
 		sudo kubectl apply -f rabbit-mqconfig.yaml"
             '''
             }
         }
-		stage('SQL Service -- on Kubernetes Master') {
+		stage('SQL Service -- on Kubernetes servicemesh_asim') {
            steps {
            sh '''
 		chmod 400 id_rsa
@@ -140,14 +143,14 @@ pipeline {
 		rm -rf devengers &&
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers &&
-		git checkout master &&
+		git checkout servicemesh_asim &&
 		cd mysql &&
         sudo kubectl apply -f mysql-pv.yaml &&
 		sudo kubectl apply -f mysql-deployment.yaml"
 		'''
            }
        } 
-	   stage('PostGres Service -- on Kubernetes Master') {
+	   stage('PostGres Service -- on Kubernetes servicemesh_asim') {
             steps {
              sh '''
 		chmod 400 id_rsa
@@ -159,13 +162,13 @@ pipeline {
 		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
-		cd devengers && git checkout master && cd postgresql &&
+		cd devengers && git checkout servicemesh_asim && cd postgresql &&
 		sudo kubectl apply -f postgres-storage.yaml &&
 		sudo kubectl apply -f postgres-deployment.yaml && sudo kubectl apply -f postgres-service.yaml"
             '''    
             }
         }
-		stage('User Management Service --on Kubernetes Master') {
+		stage('User Management Service --on Kubernetes servicemesh_asim') {
             steps {
             sh '''
 		chmod 400 id_rsa
@@ -177,13 +180,16 @@ pipeline {
 		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
-		cd devengers && git checkout master && cd Usermanagement_API_Gateway &&
-		sudo kubectl delete service datamodel dataanalysis dataretrieval sessionservice ui um-api &&
-		sudo kubectl delete deployment datamodel dataanalysis dataretrieval sessionservice ui um-api && sudo kubectl apply -f um-apiDeployment.yaml --validate=false"
+		cd devengers && git checkout servicemesh_asim && cd Usermanagement_API_Gateway &&
+    sudo kubectl apply -f um-apiDeployment.yaml --validate=false"
             '''
             }
         }
-		stage('UI Service --on Kubernetes Master') {
+    /*
+    sudo kubectl delete service datamodel dataanalysis dataretrieval sessionservice ui um-api &&
+    sudo kubectl delete deployment datamodel dataanalysis dataretrieval sessionservice ui um-api &&
+    */    
+		stage('UI Service --on Kubernetes servicemesh_asim') {
             steps {
             sh '''
 		chmod 400 id_rsa
@@ -195,12 +201,12 @@ pipeline {
 		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
-		cd devengers && git checkout master && cd Frontend &&
+		cd devengers && git checkout servicemesh_asim && cd Frontend &&
 		sudo kubectl apply -f uiDeployment.yaml --validate=false"
             '''
             }
         }
-        stage('SessionService --on Kubernetes Master') {
+        stage('SessionService --on Kubernetes servicemesh_asim') {
             steps {
             sh '''
 		chmod 400 id_rsa
@@ -212,12 +218,12 @@ pipeline {
 		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
-		cd devengers && git checkout master && cd db-service &&
+		cd devengers && git checkout servicemesh_asim && cd db-service &&
 		sudo kubectl apply -f dbDeployment.yaml --validate=false"
             '''
             }
         }
-        stage('Dataretrieval Service --on Kubernetes Master') {
+        stage('Dataretrieval Service --on Kubernetes servicemesh_asim') {
             steps {
             sh '''
 		chmod 400 id_rsa
@@ -229,12 +235,12 @@ pipeline {
 		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
-		cd devengers && git checkout master && cd dataretrieval &&
+		cd devengers && git checkout servicemesh_asim && cd dataretrieval &&
 		sudo kubectl apply -f dataretrievalDeployment.yaml --validate=false"
             '''
             }
         }
-        stage('DataModelling Service --on Kubernetes Master') {
+        stage('DataModelling Service --on Kubernetes servicemesh_asim') {
             steps {
             sh '''
 		chmod 400 id_rsa
@@ -246,13 +252,13 @@ pipeline {
 		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
-		cd devengers && git checkout master && cd datamodelling &&
+		cd devengers && git checkout servicemesh_asim && cd datamodelling &&
 		sudo kubectl apply -f datamodellingDeployment.yaml --validate=false"
             '''
             }
         }
 		
-        stage('DataAnalysis Service --on Kubernetes Master') {
+        stage('DataAnalysis Service --on Kubernetes servicemesh_asim') {
             steps {
             sh '''
 		chmod 400 id_rsa
@@ -264,7 +270,7 @@ pipeline {
 		rm -rf devengers &&
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
-		cd devengers && git checkout master && cd dataanalysis &&
+		cd devengers && git checkout servicemesh_asim && cd dataanalysis &&
 		sudo kubectl apply -f dataanalysisDeployment.yaml --validate=false"
             '''
             }
