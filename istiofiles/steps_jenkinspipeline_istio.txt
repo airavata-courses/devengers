@@ -1,0 +1,4 @@
+1) kubectl apply -f istio-init.yaml
+2) kubectl apply -f istio-demo-config.yaml
+3) kubectly apply -f kiali-secret.yaml
+4) kubectl label namespace default istio-injection=enabled
