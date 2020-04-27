@@ -15,7 +15,7 @@ pipeline {
             }
         }
 
-        /*
+        
         stage('Install dependencies for Node') {
             steps {
                 dir('Usermanagement_API_Gateway/Backend/') {
@@ -111,7 +111,7 @@ pipeline {
                   sudo docker-compose push
               '''
               }
-          }*/
+          }
 
 	    stage('RabbitMQ Service -- on Kubernetes servicemesh_asim') {
             steps {
