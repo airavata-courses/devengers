@@ -126,6 +126,7 @@ pipeline {
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers && git checkout servicemesh_asim && cd rabbitmq &&
+        sudo kubectl delete --ignore-not-found=true -f rabbit-mqconfig.yaml &&
 		sudo kubectl apply -f rabbit-mqconfig.yaml"
             '''
             }
@@ -145,7 +146,9 @@ pipeline {
 		cd devengers &&
 		git checkout servicemesh_asim &&
 		cd mysql &&
+        sudo kubectl delete --ignore-not-found=true -f mysql-pv.yaml &&
         sudo kubectl apply -f mysql-pv.yaml &&
+        sudo kubectl delete --ignore-not-found=true -f mysql-deployment.yaml &&
 		sudo kubectl apply -f mysql-deployment.yaml"
 		'''
            }
@@ -163,8 +166,12 @@ pipeline {
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers && git checkout servicemesh_asim && cd postgresql &&
+        sudo kubectl delete --ignore-not-found=true -f postgres-storage.yaml &&
 		sudo kubectl apply -f postgres-storage.yaml &&
-		sudo kubectl apply -f postgres-deployment.yaml && sudo kubectl apply -f postgres-service.yaml"
+        sudo kubectl delete --ignore-not-found=true -f postgres-deployment.yaml &&
+		sudo kubectl apply -f postgres-deployment.yaml &&
+        sudo kubectl delete --ignore-not-found=true -f postgres-service.yaml &&
+        sudo kubectl apply -f postgres-service.yaml"
             '''    
             }
         }
@@ -181,7 +188,8 @@ pipeline {
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers && git checkout servicemesh_asim && cd Usermanagement_API_Gateway &&
-    sudo kubectl apply -f um-apiDeployment.yaml --validate=false"
+        sudo kubectl delete --ignore-not-found=true -f um-apiDeployment.yaml &&
+        sudo kubectl apply -f um-apiDeployment.yaml --validate=false"
             '''
             }
         }
@@ -202,6 +210,7 @@ pipeline {
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers && git checkout servicemesh_asim && cd Frontend &&
+        sudo kubectl delete --ignore-not-found=true -f uiDeployment.yaml &&
 		sudo kubectl apply -f uiDeployment.yaml --validate=false"
             '''
             }
@@ -219,6 +228,7 @@ pipeline {
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers && git checkout servicemesh_asim && cd db-service &&
+        sudo kubectl delete --ignore-not-found=true -f dbDeployment.yaml &&
 		sudo kubectl apply -f dbDeployment.yaml --validate=false"
             '''
             }
@@ -236,6 +246,7 @@ pipeline {
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers && git checkout servicemesh_asim && cd dataretrieval &&
+        sudo kubectl delete --ignore-not-found=true -f dataretrievalDeployment.yaml &&
 		sudo kubectl apply -f dataretrievalDeployment.yaml --validate=false"
             '''
             }
@@ -253,6 +264,7 @@ pipeline {
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers && git checkout servicemesh_asim && cd datamodelling &&
+        sudo kubectl delete --ignore-not-found=true -f datamodellingDeployment.yaml &&
 		sudo kubectl apply -f datamodellingDeployment.yaml --validate=false"
             '''
             }
@@ -271,6 +283,7 @@ pipeline {
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers && git checkout servicemesh_asim && cd dataanalysis &&
+        sudo kubectl delete --ignore-not-found=true -f dataanalysisDeployment.yaml &&
 		sudo kubectl apply -f dataanalysisDeployment.yaml --validate=false"
             '''
             }
