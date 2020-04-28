@@ -146,9 +146,10 @@ pipeline {
 		cd devengers &&
 		git checkout servicemesh_asim &&
 		cd mysql &&
-        sudo kubectl delete --ignore-not-found=true -f mysql-pv.yaml &&
-        sudo kubectl apply -f mysql-pv.yaml &&
         sudo kubectl delete --ignore-not-found=true -f mysql-deployment.yaml &&
+        sudo kubectl delete --ignore-not-found=true pvc mysql-pv-claim &&
+        sudo kubectl delete --ignore-not-found=true pv mysql-pv-volume &&
+        sudo kubectl apply -f mysql-pv.yaml &&
 		sudo kubectl apply -f mysql-deployment.yaml"
 		'''
            }
@@ -166,9 +167,10 @@ pipeline {
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers && git checkout servicemesh_asim && cd postgresql &&
-        sudo kubectl delete --ignore-not-found=true -f postgres-storage.yaml &&
-		sudo kubectl apply -f postgres-storage.yaml &&
         sudo kubectl delete --ignore-not-found=true -f postgres-deployment.yaml &&
+        sudo kubectl delete --ignore-not-found=true pvc postgres-pv-claim &&
+        sudo kubectl delete --ignore-not-found=true pv postgres-pv-volume &&
+		sudo kubectl apply -f postgres-storage.yaml &&
 		sudo kubectl apply -f postgres-deployment.yaml &&
         sudo kubectl delete --ignore-not-found=true -f postgres-service.yaml &&
         sudo kubectl apply -f postgres-service.yaml"
