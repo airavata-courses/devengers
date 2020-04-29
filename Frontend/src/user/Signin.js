@@ -97,7 +97,7 @@ class SignInSide extends Component {
       <form>
         <div>
           <div class="form-group">
-            <label className="text-muted ">Email</label>
+            <label className="text-muted ">Login Id Email</label>
             <input
               onChange={this.handleChange("email")}
               type="email"
