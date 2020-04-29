@@ -1,0 +1,33 @@
+kind: VirtualService
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: ui-virtualservice
+  namespace: default
+spec:
+  hosts:     
+    - ui
+  http:
+    - route:
+        - destination:
+            host: ui
+            subset: original
+          weight: 80
+        -destination:
+            host: ui
+            subset: canary
+          weight: 20
+---
+kind: DestinationRule
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: ui-destinationrule
+  namespace: default
+spec:
+  host: ui
+  subsets:
+    - labels:
+        version: original
+      name: original
+    - labels:
+        version: canary
+      name: canary

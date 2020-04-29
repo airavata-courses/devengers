@@ -28,6 +28,7 @@ spec:
     metadata:
       labels:
         app: ui
+        version: original
     spec:
       containers:
       - image: devengers/ui
@@ -51,6 +52,7 @@ spec:
     metadata:
       labels:
         app: ui
+        version: canary
     spec:
       containers:
       - image: devengers/ui_1.0
