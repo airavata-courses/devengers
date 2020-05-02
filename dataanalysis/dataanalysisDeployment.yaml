@@ -15,6 +15,8 @@ apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
 metadata:
   name: dataanalysis
+  labels:
+    app: dataanalysis
 spec:
   replicas: 2
   selector:
@@ -24,9 +26,33 @@ spec:
     metadata:
       labels:
         app: dataanalysis
+        version: original
     spec:
       containers:
       - image: devengers/dataanalysis
+        name: dataanalysis
+        ports:
+          - containerPort: 5004
+---    
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: dataanalysis-1.0
+  labels:
+    app: dataanalysis
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: dataanalysis
+  template:
+    metadata:
+      labels:
+        app: dataanalysis
+        version: canary
+    spec:
+      containers:
+      - image: devengers/dataanalysis_1.0
         name: dataanalysis
         ports:
           - containerPort: 5004
