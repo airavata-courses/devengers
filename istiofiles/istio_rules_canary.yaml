@@ -11,11 +11,11 @@ spec:
         - destination:
             host: ui
             subset: original
-          weight: 80
-        -destination:
+          weight: 50
+        - destination:
             host: ui
             subset: canary
-          weight: 20
+          weight: 50
 ---
 kind: DestinationRule
 apiVersion: networking.istio.io/v1alpha3
