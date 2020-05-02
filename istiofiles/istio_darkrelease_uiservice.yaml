@@ -1,31 +1,30 @@
 kind: VirtualService
 apiVersion: networking.istio.io/v1alpha3
 metadata:
-  name: ui
+  name: ui-darkrelease-virtualservice
   namespace: default
-  labels:
-    kiali_wizard: weighted_routing
 spec:
-  hosts:     
+  hosts:
     - ui
   http:
+    - match:
+        - headers:
+            x-my-header:
+              exact: darkrelease
+      route:
+        - destination:
+            host: ui
+            subset: canary
     - route:
         - destination:
             host: ui
             subset: original
-          weight: 50
-        - destination:
-            host: ui
-            subset: canary
-          weight: 50
 ---
 kind: DestinationRule
 apiVersion: networking.istio.io/v1alpha3
 metadata:
-  name: ui
+  name: ui-darkrelease-destination-rules
   namespace: default
-  labels:
-    kiali_wizard: weighted_routing
 spec:
   host: ui
   subsets:
