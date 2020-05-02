@@ -74,7 +74,7 @@ services:
                 - rabbitmq
                 - postgres
     dataanalysis:
-            image: devengers/dataanalysis
+            image: devengers/dataanalysis_1.0
             build : ./dataanalysis/.
             environment:
                 - HOSTNAMERABBIT=rabbitmq

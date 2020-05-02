@@ -81,7 +81,7 @@ def handle_delivery(channel, method, header, body):
     #print("Properties: {}".format(header))
     #print(body)
     print("message recieved")
-    print("message recieved")
+    print("The new version of dataanlaysis is called to test the dark releases");
     
     try:
         print("creating ecting to db")
