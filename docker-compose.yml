@@ -7,7 +7,7 @@ version: '3'
 #     session-service-network:
 services:
     ui :
-        image: devengers/ui
+        image: devengers/ui:v1
         build : ./Frontend/.
         ports:
             - "0.0.0.0:3000:3000"
