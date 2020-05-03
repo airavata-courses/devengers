@@ -30,7 +30,7 @@ spec:
         app: ui
     spec:
       containers:
-      - image: devengers/ui
+      - image: devengers/ui:v1
         imagePullPolicy: Always
         name: ui
         ports:
