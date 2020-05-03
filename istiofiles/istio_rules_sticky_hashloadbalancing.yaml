@@ -1,0 +1,32 @@
+kind: VirtualService
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: ui-virtualservice
+  namespace: default
+spec:
+  hosts:     
+    - ui
+  http:
+    - route:
+        - destination:
+            host: ui
+            subset: original-service-pods
+          #weight: 50
+        
+---
+kind: DestinationRule
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: ui-destinationrule
+  namespace: default
+spec:
+  host: ui
+  trafficPolicy:
+    loadBalancer:
+      consistentHash:
+        useSourceIp: true
+  subsets:
+    - labels:
+        app: ui
+      name: original-service-pods
+    
