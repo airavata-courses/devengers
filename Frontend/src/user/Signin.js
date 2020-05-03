@@ -152,7 +152,7 @@ class SignInSide extends Component {
         
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <div className={classes.paper}>
-            <h1>Version 1</h1>
+            <h1>Version 2</h1>
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
