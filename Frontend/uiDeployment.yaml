@@ -28,7 +28,7 @@ spec:
     metadata:
       labels:
         app: ui
-        version: v1
+        version: v2
     spec:
       containers:
       - image: devengers/ui:v2
