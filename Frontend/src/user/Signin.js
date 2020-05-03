@@ -147,10 +147,10 @@ class SignInSide extends Component {
       return <Redirect to="/home" />;
     }
     return (
-      <Grid container component="main" className={classes.root}>
+      <Grid container component="main" className={classes.root}style={{ background: "#7AC0F3", marginBottom: "8px" }}>
         <CssBaseline />
         
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square style={{ background: "#B8CAD7", marginBottom: "8px" }}>
           <div className={classes.paper}>
             <h1>Version 2</h1>
             <Typography component="h1" variant="h5">
