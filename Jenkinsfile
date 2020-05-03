@@ -142,6 +142,9 @@ pipeline {
 		cd devengers &&
 		git checkout IstioPart3 &&
 		cd mysql &&
+        sudo kubectl delete --ignore-not-found=true -f mysql-deployment.yaml &&
+        sudo kubectl delete --ignore-not-found=true pvc mysql-pv-claim &&
+        sudo kubectl delete --ignore-not-found=true pv mysql-pv-volume &&
         sudo kubectl apply -f mysql-pv.yaml &&
 		sudo kubectl apply -f mysql-deployment.yaml"
 		'''
@@ -160,8 +163,13 @@ pipeline {
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers && git checkout IstioPart3 && cd postgresql &&
+		sudo kubectl delete --ignore-not-found=true -f postgres-deployment.yaml &&
+        sudo kubectl delete --ignore-not-found=true pvc postgres-pv-claim &&
+        sudo kubectl delete --ignore-not-found=true pv postgres-pv-volume &&
 		sudo kubectl apply -f postgres-storage.yaml &&
-		sudo kubectl apply -f postgres-deployment.yaml && sudo kubectl apply -f postgres-service.yaml"
+		sudo kubectl apply -f postgres-deployment.yaml &&
+        sudo kubectl delete --ignore-not-found=true -f postgres-service.yaml &&
+        sudo kubectl apply -f postgres-service.yaml"
             '''    
             }
         }
@@ -178,8 +186,8 @@ pipeline {
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers && git checkout IstioPart3 && cd Usermanagement_API_Gateway &&
-		sudo kubectl delete service datamodel dataanalysis dataretrieval sessionservice ui um-api &&
-		sudo kubectl delete deployment datamodel dataanalysis dataretrieval sessionservice ui um-api && sudo kubectl apply -f um-apiDeployment.yaml --validate=false"
+		sudo kubectl delete --ignore-not-found=true -f um-apiDeployment.yaml &&
+        sudo kubectl apply -f um-apiDeployment.yaml --validate=false"
             '''
             }
         }
@@ -196,6 +204,7 @@ pipeline {
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers && git checkout IstioPart3 && cd Frontend &&
+		sudo kubectl delete --ignore-not-found=true -f uiDeployment.yaml &&
 		sudo kubectl apply -f uiDeployment.yaml --validate=false"
             '''
             }
@@ -213,6 +222,7 @@ pipeline {
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers && git checkout IstioPart3 && cd db-service &&
+		sudo kubectl delete --ignore-not-found=true -f dbDeployment.yaml &&
 		sudo kubectl apply -f dbDeployment.yaml --validate=false"
             '''
             }
@@ -230,6 +240,7 @@ pipeline {
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers && git checkout IstioPart3 && cd dataretrieval &&
+		sudo kubectl delete --ignore-not-found=true -f dataretrievalDeployment.yaml &&
 		sudo kubectl apply -f dataretrievalDeployment.yaml --validate=false"
             '''
             }
@@ -247,6 +258,7 @@ pipeline {
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers && git checkout IstioPart3 && cd datamodelling &&
+		sudo kubectl delete --ignore-not-found=true -f datamodellingDeployment.yaml &&
 		sudo kubectl apply -f datamodellingDeployment.yaml --validate=false"
             '''
             }
@@ -265,6 +277,7 @@ pipeline {
 		sudo apt-get install -y kubectl &&
 		git clone https://github.com/airavata-courses/devengers.git &&
 		cd devengers && git checkout IstioPart3 && cd dataanalysis &&
+		sudo kubectl delete --ignore-not-found=true -f dataanalysisDeployment.yaml &&
 		sudo kubectl apply -f dataanalysisDeployment.yaml --validate=false"
             '''
             }
